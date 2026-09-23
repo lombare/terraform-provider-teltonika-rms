@@ -29,7 +29,7 @@ type currentUserModel struct {
 func NewCurrentUserDataSource() datasource.DataSource { return &currentUserDataSource{} }
 
 func (d *currentUserDataSource) Metadata(_ context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_current_user"
+	resp.TypeName = req.ProviderTypeName + "_rms_current_user"
 }
 
 func (d *currentUserDataSource) Configure(_ context.Context, req datasource.ConfigureRequest, resp *datasource.ConfigureResponse) {
@@ -83,7 +83,7 @@ type userDSModel struct {
 func NewUserDataSource() datasource.DataSource { return &userDataSource{} }
 
 func (d *userDataSource) Metadata(_ context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_user"
+	resp.TypeName = req.ProviderTypeName + "_rms_user"
 }
 
 func (d *userDataSource) Configure(_ context.Context, req datasource.ConfigureRequest, resp *datasource.ConfigureResponse) {
@@ -145,7 +145,7 @@ var userObjectAttrs = map[string]attr.Type{
 func NewUsersDataSource() datasource.DataSource { return &usersDataSource{} }
 
 func (d *usersDataSource) Metadata(_ context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_users"
+	resp.TypeName = req.ProviderTypeName + "_rms_users"
 }
 
 func (d *usersDataSource) Configure(_ context.Context, req datasource.ConfigureRequest, resp *datasource.ConfigureResponse) {

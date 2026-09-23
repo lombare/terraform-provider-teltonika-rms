@@ -30,7 +30,7 @@ type emailConfigurationResourceModel struct {
 func NewEmailConfigurationResource() resource.Resource { return &emailConfigurationResource{} }
 
 func (r *emailConfigurationResource) Metadata(_ context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_email_configuration"
+	resp.TypeName = req.ProviderTypeName + "_rms_email_configuration"
 }
 
 func (r *emailConfigurationResource) Configure(_ context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

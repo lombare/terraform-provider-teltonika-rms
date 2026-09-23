@@ -9,14 +9,14 @@ Built on the Terraform Plugin Framework, it exposes the RMS platform as first-cl
 ```hcl
 terraform {
   required_providers {
-    teltonika_rms = {
+    teltonika = {
       source  = "registry.terraform.io/lombare/teltonika-rms"
-      version = "~> 0.1"
+      version = "~> 1.0"
     }
   }
 }
 
-provider "teltonika_rms" {
+provider "teltonika" {
   # The RMS Personal Access Token (Bearer). May also be supplied via TELTONIKA_RMS_TOKEN.
   token = var.teltonika_rms_token
 
@@ -77,6 +77,30 @@ make install        # builds and drops the plugin under ~/.terraform.d/plugins
 ```
 
 Then, in any Terraform configuration, pin the source to `registry.terraform.io/lombare/teltonika-rms` and run `terraform init`. Terraform will resolve the source to the local plugin because `make install` places the binary under `~/.terraform.d/plugins/registry.terraform.io/lombare/teltonika-rms/<version>/<os_arch>/`.
+
+## Documentation
+
+The `docs/` tree is auto-generated from the provider's live schemas plus the
+files under `examples/` by [`tfplugindocs`](https://github.com/hashicorp/terraform-plugin-docs).
+The Terraform Registry ingests `docs/` verbatim, so it must be committed.
+
+Regenerate whenever a schema or example changes:
+
+```sh
+make docs
+```
+
+The generator's layout conventions:
+
+- `examples/provider/provider.tf` — embedded on the index page
+- `examples/resources/<TYPE>/resource.tf` — "Example Usage" on that resource's page
+- `examples/resources/<TYPE>/import.sh` — "Import" snippet
+- `examples/data-sources/<TYPE>/data-source.tf` — "Example Usage" on that data source's page
+
+Where `<TYPE>` is the full block name, e.g. `teltonika_rms_company`.
+
+`make docs-check` runs the generator and fails if `docs/` differs — wire that
+into CI if you want stale docs to block merges.
 
 ## Releasing to the Terraform Registry
 

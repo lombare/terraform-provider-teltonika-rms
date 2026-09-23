@@ -29,7 +29,7 @@ func New(version string) func() provider.Provider {
 }
 
 func (p *teltonikaProvider) Metadata(_ context.Context, _ provider.MetadataRequest, resp *provider.MetadataResponse) {
-	resp.TypeName = "teltonika_rms"
+	resp.TypeName = "teltonika"
 	resp.Version = p.version
 }
 
@@ -64,7 +64,7 @@ func (p *teltonikaProvider) Configure(ctx context.Context, req provider.Configur
 	if token == "" {
 		resp.Diagnostics.AddError(
 			"Missing RMS token",
-			"Set `provider.teltonika_rms.token` or the TELTONIKA_RMS_TOKEN environment variable.",
+			"Set `provider.teltonika.token` or the TELTONIKA_RMS_TOKEN environment variable.",
 		)
 		return
 	}

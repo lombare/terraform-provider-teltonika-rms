@@ -29,7 +29,7 @@ type automationResourceModel struct {
 func NewAutomationResource() resource.Resource { return &automationResource{} }
 
 func (r *automationResource) Metadata(_ context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_automation"
+	resp.TypeName = req.ProviderTypeName + "_rms_automation"
 }
 
 func (r *automationResource) Configure(_ context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

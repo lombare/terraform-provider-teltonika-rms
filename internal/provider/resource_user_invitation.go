@@ -28,7 +28,7 @@ type userInvitationResourceModel struct {
 func NewUserInvitationResource() resource.Resource { return &userInvitationResource{} }
 
 func (r *userInvitationResource) Metadata(_ context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_user_invitation"
+	resp.TypeName = req.ProviderTypeName + "_rms_user_invitation"
 }
 
 func (r *userInvitationResource) Configure(_ context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

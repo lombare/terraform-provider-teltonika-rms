@@ -1,0 +1,1 @@
+terraform import teltonika_rms_vpn_hub.eu_central 7

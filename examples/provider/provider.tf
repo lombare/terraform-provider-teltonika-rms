@@ -1,13 +1,13 @@
 terraform {
   required_providers {
-    teltonika_rms = {
+    teltonika = {
       source  = "registry.terraform.io/lombare/teltonika-rms"
-      version = "~> 0.1"
+      version = "~> 1.0"
     }
   }
 }
 
-provider "teltonika_rms" {
+provider "teltonika" {
   # Alternatively set TELTONIKA_RMS_TOKEN in the environment.
   token = var.teltonika_rms_token
 }

@@ -5,9 +5,3 @@ resource "teltonika_rms_vpn_hub" "eu_central" {
   vpn_type    = "tap"
   enabled     = true
 }
-
-resource "teltonika_rms_vpn_hub_user" "operator" {
-  name    = "alice"
-  hub_id  = tonumber(teltonika_rms_vpn_hub.eu_central.id)
-  enabled = true
-}

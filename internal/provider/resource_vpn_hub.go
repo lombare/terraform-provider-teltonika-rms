@@ -31,7 +31,7 @@ type vpnHubResourceModel struct {
 func NewVPNHubResource() resource.Resource { return &vpnHubResource{} }
 
 func (r *vpnHubResource) Metadata(_ context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_vpn_hub"
+	resp.TypeName = req.ProviderTypeName + "_rms_vpn_hub"
 }
 
 func (r *vpnHubResource) Configure(_ context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

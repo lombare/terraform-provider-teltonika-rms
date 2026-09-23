@@ -54,7 +54,7 @@ type companyDSModel struct {
 func NewCompanyDataSource() datasource.DataSource { return &companyDataSource{} }
 
 func (d *companyDataSource) Metadata(_ context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_company"
+	resp.TypeName = req.ProviderTypeName + "_rms_company"
 }
 
 func (d *companyDataSource) Configure(_ context.Context, req datasource.ConfigureRequest, resp *datasource.ConfigureResponse) {
@@ -109,7 +109,7 @@ type companiesModel struct {
 func NewCompaniesDataSource() datasource.DataSource { return &companiesDataSource{} }
 
 func (d *companiesDataSource) Metadata(_ context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_companies"
+	resp.TypeName = req.ProviderTypeName + "_rms_companies"
 }
 
 func (d *companiesDataSource) Configure(_ context.Context, req datasource.ConfigureRequest, resp *datasource.ConfigureResponse) {

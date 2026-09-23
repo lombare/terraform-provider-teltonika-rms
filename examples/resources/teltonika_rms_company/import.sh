@@ -1,0 +1,1 @@
+terraform import teltonika_rms_company.eu_subsidiary 12345

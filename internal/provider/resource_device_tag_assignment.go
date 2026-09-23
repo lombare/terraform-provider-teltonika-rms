@@ -30,7 +30,7 @@ type deviceTagAssignmentResourceModel struct {
 func NewDeviceTagAssignmentResource() resource.Resource { return &deviceTagAssignmentResource{} }
 
 func (r *deviceTagAssignmentResource) Metadata(_ context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_device_tag_assignment"
+	resp.TypeName = req.ProviderTypeName + "_rms_device_tag_assignment"
 }
 
 func (r *deviceTagAssignmentResource) Configure(_ context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

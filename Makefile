@@ -5,7 +5,9 @@ NAMESPACE := lombare
 NAME     := teltonika-rms
 OS_ARCH  := $(shell go env GOOS)_$(shell go env GOARCH)
 
-.PHONY: build install test tidy fmt vet
+TFPLUGINDOCS := go run github.com/hashicorp/terraform-plugin-docs/cmd/tfplugindocs@latest
+
+.PHONY: build install test tidy fmt vet docs docs-check
 
 build:
 	go build -o $(BINARY)
@@ -25,3 +27,12 @@ fmt:
 
 vet:
 	go vet ./...
+
+# Regenerate the docs/ tree from the provider's live schemas + examples/.
+docs:
+	$(TFPLUGINDOCS) generate --provider-name teltonika --rendered-provider-name "Teltonika RMS"
+
+# CI-friendly: fail if docs/ is out of date.
+docs-check:
+	$(TFPLUGINDOCS) generate --provider-name teltonika --rendered-provider-name "Teltonika RMS"
+	@git diff --exit-code docs/ || (echo "docs/ is stale — run 'make docs' and commit"; exit 1)

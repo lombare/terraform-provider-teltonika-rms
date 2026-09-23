@@ -78,7 +78,7 @@ type deviceDSModel struct {
 func NewDeviceDataSource() datasource.DataSource { return &deviceDataSource{} }
 
 func (d *deviceDataSource) Metadata(_ context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_device"
+	resp.TypeName = req.ProviderTypeName + "_rms_device"
 }
 
 func (d *deviceDataSource) Configure(_ context.Context, req datasource.ConfigureRequest, resp *datasource.ConfigureResponse) {
@@ -149,7 +149,7 @@ type devicesModel struct {
 func NewDevicesDataSource() datasource.DataSource { return &devicesDataSource{} }
 
 func (d *devicesDataSource) Metadata(_ context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_devices"
+	resp.TypeName = req.ProviderTypeName + "_rms_devices"
 }
 
 func (d *devicesDataSource) Configure(_ context.Context, req datasource.ConfigureRequest, resp *datasource.ConfigureResponse) {
@@ -224,7 +224,7 @@ type devicesMonitoringModel struct {
 func NewDevicesMonitoringDataSource() datasource.DataSource { return &devicesMonitoringDataSource{} }
 
 func (d *devicesMonitoringDataSource) Metadata(_ context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_devices_monitoring"
+	resp.TypeName = req.ProviderTypeName + "_rms_devices_monitoring"
 }
 
 func (d *devicesMonitoringDataSource) Configure(_ context.Context, req datasource.ConfigureRequest, resp *datasource.ConfigureResponse) {
@@ -268,7 +268,7 @@ type deviceStatisticsModel struct {
 func NewDeviceStatisticsDataSource() datasource.DataSource { return &deviceStatisticsDataSource{} }
 
 func (d *deviceStatisticsDataSource) Metadata(_ context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_device_statistics"
+	resp.TypeName = req.ProviderTypeName + "_rms_device_statistics"
 }
 
 func (d *deviceStatisticsDataSource) Configure(_ context.Context, req datasource.ConfigureRequest, resp *datasource.ConfigureResponse) {

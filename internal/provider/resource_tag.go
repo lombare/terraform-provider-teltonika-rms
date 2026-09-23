@@ -28,7 +28,7 @@ type tagResourceModel struct {
 func NewTagResource() resource.Resource { return &tagResource{} }
 
 func (r *tagResource) Metadata(_ context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_tag"
+	resp.TypeName = req.ProviderTypeName + "_rms_tag"
 }
 
 func (r *tagResource) Configure(_ context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

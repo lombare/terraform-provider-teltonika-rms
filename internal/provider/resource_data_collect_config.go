@@ -30,7 +30,7 @@ type dataCollectConfigResourceModel struct {
 func NewDataCollectConfigResource() resource.Resource { return &dataCollectConfigResource{} }
 
 func (r *dataCollectConfigResource) Metadata(_ context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_data_collect_config"
+	resp.TypeName = req.ProviderTypeName + "_rms_data_collect_config"
 }
 
 func (r *dataCollectConfigResource) Configure(_ context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

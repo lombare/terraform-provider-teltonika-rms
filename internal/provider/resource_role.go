@@ -28,7 +28,7 @@ type roleResourceModel struct {
 func NewRoleResource() resource.Resource { return &roleResource{} }
 
 func (r *roleResource) Metadata(_ context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_role"
+	resp.TypeName = req.ProviderTypeName + "_rms_role"
 }
 
 func (r *roleResource) Configure(_ context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

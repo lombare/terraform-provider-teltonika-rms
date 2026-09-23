@@ -54,7 +54,7 @@ type tagDSModel struct {
 func NewTagDataSource() datasource.DataSource { return &tagDataSource{} }
 
 func (d *tagDataSource) Metadata(_ context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_tag"
+	resp.TypeName = req.ProviderTypeName + "_rms_tag"
 }
 
 func (d *tagDataSource) Configure(_ context.Context, req datasource.ConfigureRequest, resp *datasource.ConfigureResponse) {
@@ -105,7 +105,7 @@ type tagsModel struct {
 func NewTagsDataSource() datasource.DataSource { return &tagsDataSource{} }
 
 func (d *tagsDataSource) Metadata(_ context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_tags"
+	resp.TypeName = req.ProviderTypeName + "_rms_tags"
 }
 
 func (d *tagsDataSource) Configure(_ context.Context, req datasource.ConfigureRequest, resp *datasource.ConfigureResponse) {
@@ -185,7 +185,7 @@ type alertDSModel struct {
 func NewAlertDataSource() datasource.DataSource { return &alertDataSource{} }
 
 func (d *alertDataSource) Metadata(_ context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_alert"
+	resp.TypeName = req.ProviderTypeName + "_rms_alert"
 }
 
 func (d *alertDataSource) Configure(_ context.Context, req datasource.ConfigureRequest, resp *datasource.ConfigureResponse) {
@@ -240,7 +240,7 @@ type alertsModel struct {
 func NewAlertsDataSource() datasource.DataSource { return &alertsDataSource{} }
 
 func (d *alertsDataSource) Metadata(_ context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_alerts"
+	resp.TypeName = req.ProviderTypeName + "_rms_alerts"
 }
 
 func (d *alertsDataSource) Configure(_ context.Context, req datasource.ConfigureRequest, resp *datasource.ConfigureResponse) {
@@ -320,7 +320,7 @@ type alertConfigDSModel struct {
 func NewAlertConfigurationDataSource() datasource.DataSource { return &alertConfigDataSource{} }
 
 func (d *alertConfigDataSource) Metadata(_ context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_alert_configuration"
+	resp.TypeName = req.ProviderTypeName + "_rms_alert_configuration"
 }
 
 func (d *alertConfigDataSource) Configure(_ context.Context, req datasource.ConfigureRequest, resp *datasource.ConfigureResponse) {
@@ -375,7 +375,7 @@ type alertConfigsModel struct {
 func NewAlertConfigurationsDataSource() datasource.DataSource { return &alertConfigsDataSource{} }
 
 func (d *alertConfigsDataSource) Metadata(_ context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_alert_configurations"
+	resp.TypeName = req.ProviderTypeName + "_rms_alert_configurations"
 }
 
 func (d *alertConfigsDataSource) Configure(_ context.Context, req datasource.ConfigureRequest, resp *datasource.ConfigureResponse) {
@@ -455,7 +455,7 @@ type emailConfigDSModel struct {
 func NewEmailConfigurationDataSource() datasource.DataSource { return &emailConfigDataSource{} }
 
 func (d *emailConfigDataSource) Metadata(_ context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_email_configuration"
+	resp.TypeName = req.ProviderTypeName + "_rms_email_configuration"
 }
 
 func (d *emailConfigDataSource) Configure(_ context.Context, req datasource.ConfigureRequest, resp *datasource.ConfigureResponse) {
@@ -510,7 +510,7 @@ type emailConfigsModel struct {
 func NewEmailConfigurationsDataSource() datasource.DataSource { return &emailConfigsDataSource{} }
 
 func (d *emailConfigsDataSource) Metadata(_ context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_email_configurations"
+	resp.TypeName = req.ProviderTypeName + "_rms_email_configurations"
 }
 
 func (d *emailConfigsDataSource) Configure(_ context.Context, req datasource.ConfigureRequest, resp *datasource.ConfigureResponse) {
@@ -584,7 +584,7 @@ type roleDSModel struct {
 func NewRoleDataSource() datasource.DataSource { return &roleDataSource{} }
 
 func (d *roleDataSource) Metadata(_ context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_role"
+	resp.TypeName = req.ProviderTypeName + "_rms_role"
 }
 
 func (d *roleDataSource) Configure(_ context.Context, req datasource.ConfigureRequest, resp *datasource.ConfigureResponse) {
@@ -635,7 +635,7 @@ type rolesModel struct {
 func NewRolesDataSource() datasource.DataSource { return &rolesDataSource{} }
 
 func (d *rolesDataSource) Metadata(_ context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_roles"
+	resp.TypeName = req.ProviderTypeName + "_rms_roles"
 }
 
 func (d *rolesDataSource) Configure(_ context.Context, req datasource.ConfigureRequest, resp *datasource.ConfigureResponse) {
@@ -696,7 +696,7 @@ type rolePermissionsModel struct {
 func NewRolePermissionsDataSource() datasource.DataSource { return &rolePermissionsDataSource{} }
 
 func (d *rolePermissionsDataSource) Metadata(_ context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_role_permissions"
+	resp.TypeName = req.ProviderTypeName + "_rms_role_permissions"
 }
 
 func (d *rolePermissionsDataSource) Configure(_ context.Context, req datasource.ConfigureRequest, resp *datasource.ConfigureResponse) {
@@ -792,7 +792,7 @@ type automationDSModel struct {
 func NewAutomationDataSource() datasource.DataSource { return &automationDataSource{} }
 
 func (d *automationDataSource) Metadata(_ context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_automation"
+	resp.TypeName = req.ProviderTypeName + "_rms_automation"
 }
 
 func (d *automationDataSource) Configure(_ context.Context, req datasource.ConfigureRequest, resp *datasource.ConfigureResponse) {
@@ -849,7 +849,7 @@ type automationsModel struct {
 func NewAutomationsDataSource() datasource.DataSource { return &automationsDataSource{} }
 
 func (d *automationsDataSource) Metadata(_ context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_automations"
+	resp.TypeName = req.ProviderTypeName + "_rms_automations"
 }
 
 func (d *automationsDataSource) Configure(_ context.Context, req datasource.ConfigureRequest, resp *datasource.ConfigureResponse) {
@@ -932,7 +932,7 @@ type vpnHubDSModel struct {
 func NewVPNHubDataSource() datasource.DataSource { return &vpnHubDataSource{} }
 
 func (d *vpnHubDataSource) Metadata(_ context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_vpn_hub"
+	resp.TypeName = req.ProviderTypeName + "_rms_vpn_hub"
 }
 
 func (d *vpnHubDataSource) Configure(_ context.Context, req datasource.ConfigureRequest, resp *datasource.ConfigureResponse) {
@@ -989,7 +989,7 @@ type vpnHubsModel struct {
 func NewVPNHubsDataSource() datasource.DataSource { return &vpnHubsDataSource{} }
 
 func (d *vpnHubsDataSource) Metadata(_ context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_vpn_hubs"
+	resp.TypeName = req.ProviderTypeName + "_rms_vpn_hubs"
 }
 
 func (d *vpnHubsDataSource) Configure(_ context.Context, req datasource.ConfigureRequest, resp *datasource.ConfigureResponse) {
@@ -1059,7 +1059,7 @@ type filesModel struct {
 func NewFilesDataSource() datasource.DataSource { return &filesDataSource{} }
 
 func (d *filesDataSource) Metadata(_ context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_files"
+	resp.TypeName = req.ProviderTypeName + "_rms_files"
 }
 
 func (d *filesDataSource) Configure(_ context.Context, req datasource.ConfigureRequest, resp *datasource.ConfigureResponse) {
@@ -1123,7 +1123,7 @@ type hotspotsModel struct {
 func NewHotspotsDataSource() datasource.DataSource { return &hotspotsDataSource{} }
 
 func (d *hotspotsDataSource) Metadata(_ context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_hotspots"
+	resp.TypeName = req.ProviderTypeName + "_rms_hotspots"
 }
 
 func (d *hotspotsDataSource) Configure(_ context.Context, req datasource.ConfigureRequest, resp *datasource.ConfigureResponse) {
@@ -1193,7 +1193,7 @@ type dataCollectConfigsModel struct {
 func NewDataCollectConfigsDataSource() datasource.DataSource { return &dataCollectConfigsDataSource{} }
 
 func (d *dataCollectConfigsDataSource) Metadata(_ context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_data_collect_configs"
+	resp.TypeName = req.ProviderTypeName + "_rms_data_collect_configs"
 }
 
 func (d *dataCollectConfigsDataSource) Configure(_ context.Context, req datasource.ConfigureRequest, resp *datasource.ConfigureResponse) {
@@ -1239,7 +1239,7 @@ type creditsSummaryModel struct {
 func NewCreditsSummaryDataSource() datasource.DataSource { return &creditsSummaryDataSource{} }
 
 func (d *creditsSummaryDataSource) Metadata(_ context.Context, req datasource.MetadataRequest, resp *datasource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_credits_summary"
+	resp.TypeName = req.ProviderTypeName + "_rms_credits_summary"
 }
 
 func (d *creditsSummaryDataSource) Configure(_ context.Context, req datasource.ConfigureRequest, resp *datasource.ConfigureResponse) {

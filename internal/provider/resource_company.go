@@ -29,7 +29,7 @@ type companyResourceModel struct {
 func NewCompanyResource() resource.Resource { return &companyResource{} }
 
 func (r *companyResource) Metadata(_ context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_company"
+	resp.TypeName = req.ProviderTypeName + "_rms_company"
 }
 
 func (r *companyResource) Configure(_ context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

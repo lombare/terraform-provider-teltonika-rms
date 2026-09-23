@@ -28,7 +28,7 @@ type configuratorTemplateResourceModel struct {
 func NewConfiguratorTemplateResource() resource.Resource { return &configuratorTemplateResource{} }
 
 func (r *configuratorTemplateResource) Metadata(_ context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
-	resp.TypeName = req.ProviderTypeName + "_configurator_template"
+	resp.TypeName = req.ProviderTypeName + "_rms_configurator_template"
 }
 
 func (r *configuratorTemplateResource) Configure(_ context.Context, req resource.ConfigureRequest, resp *resource.ConfigureResponse) {

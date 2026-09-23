@@ -12,7 +12,7 @@ built on the Terraform Plugin Framework.
 ### Provider
 
 - Address: `registry.terraform.io/lombare/teltonika-rms`.
-- Local block name: `teltonika_rms`; resource/data-source prefix `teltonika_rms_*`.
+- Local block name: `teltonika` (Terraform disallows underscores in provider local names); resource/data-source prefix `teltonika_rms_*`.
 - Authenticates with a Personal Access Token (Bearer). Configurable via `token` in
   the provider block or the `TELTONIKA_RMS_TOKEN` environment variable.
 - Optional `base_url` (or `TELTONIKA_RMS_BASE_URL`) for staging or on-prem RMS
