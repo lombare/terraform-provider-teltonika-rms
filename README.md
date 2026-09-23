@@ -78,6 +78,39 @@ make install        # builds and drops the plugin under ~/.terraform.d/plugins
 
 Then, in any Terraform configuration, pin the source to `registry.terraform.io/lombare/teltonika-rms` and run `terraform init`. Terraform will resolve the source to the local plugin because `make install` places the binary under `~/.terraform.d/plugins/registry.terraform.io/lombare/teltonika-rms/<version>/<os_arch>/`.
 
+## Releasing to the Terraform Registry
+
+The registry doesn't pull sources — it pulls signed release artifacts from a
+GitHub Release. The repo ships the config that produces those artifacts.
+
+One-time setup:
+
+1. Generate a GPG key pair used only for signing releases:
+   ```sh
+   gpg --full-generate-key                       # RSA 4096, no expiry, no passphrase or a strong one
+   gpg --list-secret-keys --keyid-format=long    # note the key id
+   gpg --armor --export <KEY_ID>                 # public key — paste into your Registry profile
+   gpg --armor --export-secret-keys <KEY_ID>     # private key — save in a repo secret
+   ```
+2. In your GitHub repo settings → Secrets and variables → Actions, add:
+   - `GPG_PRIVATE_KEY` — the armored private key from step 1
+   - `PASSPHRASE` — the key's passphrase (empty string if none)
+3. On [registry.terraform.io](https://registry.terraform.io/publish/provider),
+   sign in with GitHub, upload the armored public key, and add the provider by
+   its repo (`Terraform-Provider-Teltonika-RMS`).
+
+To cut a release:
+
+```sh
+git tag v1.0.0
+git push origin v1.0.0
+```
+
+`.github/workflows/release.yml` runs GoReleaser on the tag, which produces the
+zips, `SHA256SUMS`, `SHA256SUMS.sig`, and `manifest.json` and attaches them to
+a matching GitHub Release. The Terraform Registry ingests them within a few
+minutes; hit "Resync" on the provider page if it doesn't pick up automatically.
+
 ## API surface
 
 The RMS API exposes roughly 240 operations across 175+ paths. The provider intentionally covers every management-shaped area of the API — anything creatable/deletable/updatable is a resource; read-only endpoints are data sources. When the API adds new endpoints, the pattern to add coverage is:
