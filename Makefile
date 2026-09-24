@@ -1,5 +1,5 @@
 BINARY  := terraform-provider-teltonika-rms
-VERSION := 1.0.0
+VERSION := 1.1.0
 HOSTNAME := registry.terraform.io
 NAMESPACE := lombare
 NAME     := teltonika-rms
