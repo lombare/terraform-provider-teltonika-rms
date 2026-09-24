@@ -37,26 +37,43 @@ func (r *roleResource) Configure(_ context.Context, req resource.ConfigureReques
 
 func (r *roleResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Description: "RBAC role (`/roles`).",
+		Description: "Creates and manages an RBAC role (`POST /roles`, `PUT /roles/{id}`, `DELETE /roles/{id}`). " +
+			"A role bundles a set of permissions (`permission_ids`) that can be granted to users, and is " +
+			"scoped to one or more companies (`company_ids`). Look up the available permissions with the " +
+			"`teltonika_rms_role_permissions` data source.",
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:      true,
+				Description:   "RMS-assigned role identifier.",
 				PlanModifiers: []planmodifier.String{stringplanmodifier.UseStateForUnknown()},
 			},
-			"title":       schema.StringAttribute{Required: true},
-			"description": schema.StringAttribute{Optional: true, Computed: true},
+			"title": schema.StringAttribute{
+				Required:    true,
+				Description: "Role title, e.g. `Admin role`. Shown in the RMS UI.",
+			},
+			"description": schema.StringAttribute{
+				Optional:    true,
+				Computed:    true,
+				Description: "Free-form role description.",
+			},
 			"company_ids": schema.ListAttribute{
 				Required:    true,
 				ElementType: types.Int64Type,
-				Description: "Company ids the role applies to.",
+				Description: "Ids of every company the role applies to. Required at creation; changes are applied via the update endpoint.",
 			},
 			"permission_ids": schema.ListAttribute{
 				Required:    true,
 				ElementType: types.Int64Type,
-				Description: "Permission ids that make up the role.",
+				Description: "Ids of the permissions that make up the role. Lookup with the `teltonika_rms_role_permissions` data source.",
 			},
-			"created_at": schema.StringAttribute{Computed: true},
-			"updated_at": schema.StringAttribute{Computed: true},
+			"created_at": schema.StringAttribute{
+				Computed:    true,
+				Description: "Timestamp of role creation.",
+			},
+			"updated_at": schema.StringAttribute{
+				Computed:    true,
+				Description: "Timestamp of the most recent update.",
+			},
 		},
 	}
 }

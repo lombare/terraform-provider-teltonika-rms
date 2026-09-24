@@ -3,12 +3,12 @@
 page_title: "teltonika_rms_user Data Source - Teltonika RMS"
 subcategory: ""
 description: |-
-  A single RMS user (GET /users/{id}).
+  Looks up a single RMS user by id (GET /users/{id}).
 ---
 
 # teltonika_rms_user (Data Source)
 
-A single RMS user (`GET /users/{id}`).
+Looks up a single RMS user by id (`GET /users/{id}`).
 
 
 

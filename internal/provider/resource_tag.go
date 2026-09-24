@@ -37,18 +37,40 @@ func (r *tagResource) Configure(_ context.Context, req resource.ConfigureRequest
 
 func (r *tagResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Description: "A device tag (`/tags`).",
+		Description: "Creates and manages a tag (`POST /tags`, `PUT /tags/{id}`, `DELETE /tags/{id}`). " +
+			"Tags are the primary way to group devices in RMS; they are also referenced by VPN hubs, " +
+			"automations, and data-collect configurations to target sets of devices.",
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:      true,
+				Description:   "RMS-assigned tag identifier.",
 				PlanModifiers: []planmodifier.String{stringplanmodifier.UseStateForUnknown()},
 			},
-			"name":        schema.StringAttribute{Required: true},
-			"company_id":  schema.Int64Attribute{Required: true},
-			"description": schema.StringAttribute{Required: true},
-			"color":       schema.StringAttribute{Optional: true, Computed: true},
-			"created_at":  schema.StringAttribute{Computed: true},
-			"updated_at":  schema.StringAttribute{Computed: true},
+			"name": schema.StringAttribute{
+				Required:    true,
+				Description: "Tag name. Length must be between 3 and 100 characters.",
+			},
+			"company_id": schema.Int64Attribute{
+				Required:    true,
+				Description: "Id of the company that owns the tag. Required at creation time and immutable thereafter (change requires replace).",
+			},
+			"description": schema.StringAttribute{
+				Required:    true,
+				Description: "Free-form description of the tag. Max 200 characters.",
+			},
+			"color": schema.StringAttribute{
+				Optional:    true,
+				Computed:    true,
+				Description: "Display colour for the tag as a 7-character HEX string, e.g. `#4287f5`.",
+			},
+			"created_at": schema.StringAttribute{
+				Computed:    true,
+				Description: "Timestamp of tag creation (RMS format `Y-m-d H:i:s`).",
+			},
+			"updated_at": schema.StringAttribute{
+				Computed:    true,
+				Description: "Timestamp of the most recent update.",
+			},
 		},
 	}
 }

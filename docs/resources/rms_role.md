@@ -3,12 +3,12 @@
 page_title: "teltonika_rms_role Resource - Teltonika RMS"
 subcategory: ""
 description: |-
-  RBAC role (/roles).
+  Creates and manages an RBAC role (POST /roles, PUT /roles/{id}, DELETE /roles/{id}). A role bundles a set of permissions (permission_ids) that can be granted to users, and is scoped to one or more companies (company_ids). Look up the available permissions with the teltonika_rms_role_permissions data source.
 ---
 
 # teltonika_rms_role (Resource)
 
-RBAC role (`/roles`).
+Creates and manages an RBAC role (`POST /roles`, `PUT /roles/{id}`, `DELETE /roles/{id}`). A role bundles a set of permissions (`permission_ids`) that can be granted to users, and is scoped to one or more companies (`company_ids`). Look up the available permissions with the `teltonika_rms_role_permissions` data source.
 
 ## Example Usage
 
@@ -26,19 +26,19 @@ resource "teltonika_rms_role" "field_operator" {
 
 ### Required
 
-- `company_ids` (List of Number) Company ids the role applies to.
-- `permission_ids` (List of Number) Permission ids that make up the role.
-- `title` (String)
+- `company_ids` (List of Number) Ids of every company the role applies to. Required at creation; changes are applied via the update endpoint.
+- `permission_ids` (List of Number) Ids of the permissions that make up the role. Lookup with the `teltonika_rms_role_permissions` data source.
+- `title` (String) Role title, e.g. `Admin role`. Shown in the RMS UI.
 
 ### Optional
 
-- `description` (String)
+- `description` (String) Free-form role description.
 
 ### Read-Only
 
-- `created_at` (String)
-- `id` (String) The ID of this resource.
-- `updated_at` (String)
+- `created_at` (String) Timestamp of role creation.
+- `id` (String) RMS-assigned role identifier.
+- `updated_at` (String) Timestamp of the most recent update.
 
 ## Import
 

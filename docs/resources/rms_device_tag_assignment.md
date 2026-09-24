@@ -3,12 +3,12 @@
 page_title: "teltonika_rms_device_tag_assignment Resource - Teltonika RMS"
 subcategory: ""
 description: |-
-  Exclusive tag set on a device (/devices/tags/overwrite). Every apply replaces the device's tag set with the declared value.
+  Declares the exclusive tag set attached to a device. Every apply calls POST /devices/tags/overwrite with the declared list, so drift (tags added or removed outside Terraform) is corrected in place. On destroy, POST /devices/tags/unassign removes only the tags this resource introduced. Note: RMS does not expose a single-endpoint read that returns just the tag set for one device, so drift is reconciled at apply time rather than surfaced in terraform plan.
 ---
 
 # teltonika_rms_device_tag_assignment (Resource)
 
-Exclusive tag set on a device (`/devices/tags/overwrite`). Every apply replaces the device's tag set with the declared value.
+Declares the exclusive tag set attached to a device. Every apply calls `POST /devices/tags/overwrite` with the declared list, so drift (tags added or removed outside Terraform) is corrected in place. On destroy, `POST /devices/tags/unassign` removes only the tags this resource introduced. Note: RMS does not expose a single-endpoint read that returns just the tag set for one device, so drift is reconciled at apply time rather than surfaced in `terraform plan`.
 
 
 
@@ -17,9 +17,9 @@ Exclusive tag set on a device (`/devices/tags/overwrite`). Every apply replaces 
 
 ### Required
 
-- `device_id` (Number)
-- `tag_ids` (List of Number)
+- `device_id` (Number) RMS device id whose tag set is being managed.
+- `tag_ids` (List of Number) Tag ids that make up the exclusive set for the device. Any tag currently attached to the device but not listed here is removed on apply.
 
 ### Read-Only
 
-- `id` (String) The ID of this resource.
+- `id` (String) Stable hash of the target `device_id`.

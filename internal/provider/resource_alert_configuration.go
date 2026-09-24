@@ -42,21 +42,45 @@ func (r *alertConfigurationResource) Configure(_ context.Context, req resource.C
 
 func (r *alertConfigurationResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Description: "Alert configuration (`/alerts-configurations`). The payload varies wildly by alert type; supply the raw JSON body that matches the RMS OpenAPI shape.",
+		Description: "Creates and manages an alert configuration (`POST /alerts-configurations`, " +
+			"`PUT /alerts-configurations/{id}`, `DELETE /alerts-configurations/{id}`). " +
+			"RMS alerts span dozens of trigger types (SIM lifecycle, data usage, signal strength, " +
+			"connection state, hotspot events, custom rules, …) each with its own condition and action " +
+			"grammar. Rather than pinning the resource to one shape, the entire request body is passed " +
+			"through as `payload`. The expected schema is `alert_config_add` in the RMS OpenAPI at " +
+			"https://api.rms.teltonika-networks.com/openapi/compiled.yaml.",
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:      true,
+				Description:   "RMS-assigned identifier of the alert configuration.",
 				PlanModifiers: []planmodifier.String{stringplanmodifier.UseStateForUnknown()},
 			},
 			"payload": schema.StringAttribute{
-				Required:    true,
-				Description: "Raw JSON string of a single alert configuration entry (the object under `data[0]` per the OpenAPI). Round-tripped verbatim on update.",
+				Required: true,
+				Description: "Raw JSON body of the alert configuration matching the OpenAPI `alert_config_add` " +
+					"shape (the object that would sit under `data[0]` in the RMS request envelope — the provider " +
+					"wraps it into the required `{data:[…]}` shape when POSTing). Round-tripped verbatim on update.",
 			},
-			"name":       schema.StringAttribute{Computed: true},
-			"type":       schema.StringAttribute{Computed: true},
-			"enabled":    schema.BoolAttribute{Computed: true},
-			"created_at": schema.StringAttribute{Computed: true},
-			"updated_at": schema.StringAttribute{Computed: true},
+			"name": schema.StringAttribute{
+				Computed:    true,
+				Description: "Alert configuration name reported by RMS.",
+			},
+			"type": schema.StringAttribute{
+				Computed:    true,
+				Description: "Alert type reported by RMS (e.g. `device_offline`, `sim_swap`, `data_usage`).",
+			},
+			"enabled": schema.BoolAttribute{
+				Computed:    true,
+				Description: "Whether the alert is currently active.",
+			},
+			"created_at": schema.StringAttribute{
+				Computed:    true,
+				Description: "Timestamp of alert configuration creation.",
+			},
+			"updated_at": schema.StringAttribute{
+				Computed:    true,
+				Description: "Timestamp of the most recent update.",
+			},
 		},
 	}
 }

@@ -38,18 +38,41 @@ func (r *automationResource) Configure(_ context.Context, req resource.Configure
 
 func (r *automationResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Description: "Automation (`/automations`). Payload is passed through verbatim so callers can drive the full trigger/condition/action grammar RMS exposes.",
+		Description: "Creates and manages an RMS automation (`POST /automations`, `PUT /automations/{id}`, " +
+			"`DELETE /automations/{id}`). Automations pair triggers (device state changes, alerts, schedules) " +
+			"with conditions and actions (device reboot, firmware push, notification, …); the request grammar " +
+			"is broad enough that the entire payload is passed through as raw JSON. Refer to the RMS OpenAPI " +
+			"at https://api.rms.teltonika-networks.com/openapi/compiled.yaml for the current body shape.",
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:      true,
+				Description:   "RMS-assigned identifier of the automation.",
 				PlanModifiers: []planmodifier.String{stringplanmodifier.UseStateForUnknown()},
 			},
-			"payload":     schema.StringAttribute{Required: true, Description: "Raw JSON body sent to POST/PUT `/automations`."},
-			"name":        schema.StringAttribute{Computed: true},
-			"description": schema.StringAttribute{Computed: true},
-			"enabled":     schema.BoolAttribute{Computed: true},
-			"created_at":  schema.StringAttribute{Computed: true},
-			"updated_at":  schema.StringAttribute{Computed: true},
+			"payload": schema.StringAttribute{
+				Required:    true,
+				Description: "Raw JSON body sent to `POST /automations` on create and `PUT /automations/{id}` on update.",
+			},
+			"name": schema.StringAttribute{
+				Computed:    true,
+				Description: "Automation name reported by RMS.",
+			},
+			"description": schema.StringAttribute{
+				Computed:    true,
+				Description: "Automation description reported by RMS.",
+			},
+			"enabled": schema.BoolAttribute{
+				Computed:    true,
+				Description: "Whether the automation is currently active.",
+			},
+			"created_at": schema.StringAttribute{
+				Computed:    true,
+				Description: "Timestamp of automation creation.",
+			},
+			"updated_at": schema.StringAttribute{
+				Computed:    true,
+				Description: "Timestamp of the most recent update.",
+			},
 		},
 	}
 }

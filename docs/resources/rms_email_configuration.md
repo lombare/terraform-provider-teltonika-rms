@@ -3,12 +3,12 @@
 page_title: "teltonika_rms_email_configuration Resource - Teltonika RMS"
 subcategory: ""
 description: |-
-  SMTP email configuration used by RMS alerting (/email-configurations).
+  SMTP configuration used by RMS to deliver alert emails (POST /email-configurations, PUT /email-configurations/{id}, DELETE /email-configurations/{id}). The configuration is referenced by teltonika_rms_alert_configuration resources through the alert's actions payload.
 ---
 
 # teltonika_rms_email_configuration (Resource)
 
-SMTP email configuration used by RMS alerting (`/email-configurations`).
+SMTP configuration used by RMS to deliver alert emails (`POST /email-configurations`, `PUT /email-configurations/{id}`, `DELETE /email-configurations/{id}`). The configuration is referenced by `teltonika_rms_alert_configuration` resources through the alert's `actions` payload.
 
 ## Example Usage
 
@@ -33,15 +33,15 @@ variable "smtp_password" {
 
 ### Required
 
-- `email` (String)
-- `host` (String)
-- `name` (String)
-- `password` (String, Sensitive) SMTP password. Never surfaced by the RMS API on read; the value is kept in state as-configured.
-- `port` (Number)
-- `username` (String)
+- `email` (String) Sender email address (the `From:` used on outgoing alert mails).
+- `host` (String) SMTP host, e.g. `smtp.example.com`.
+- `name` (String) Display name for the SMTP configuration.
+- `password` (String, Sensitive) SMTP authentication password. RMS never returns the value on read; it is kept in state exactly as configured. Rotate by changing the value in your Terraform configuration.
+- `port` (Number) SMTP port, e.g. `587` for STARTTLS or `465` for SMTPS.
+- `username` (String) SMTP authentication username.
 
 ### Read-Only
 
-- `created_at` (String)
-- `id` (String) The ID of this resource.
-- `updated_at` (String)
+- `created_at` (String) Timestamp of configuration creation.
+- `id` (String) RMS-assigned identifier of the email configuration.
+- `updated_at` (String) Timestamp of the most recent update.

@@ -3,12 +3,12 @@
 page_title: "teltonika_rms_vpn_hub Data Source - Teltonika RMS"
 subcategory: ""
 description: |-
-  A single VPN hub by id.
+  Looks up a single VPN hub by id (GET /vpn/hubs/{id}/info).
 ---
 
 # teltonika_rms_vpn_hub (Data Source)
 
-A single VPN hub by id.
+Looks up a single VPN hub by id (`GET /vpn/hubs/{id}/info`).
 
 
 

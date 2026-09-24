@@ -3,12 +3,12 @@
 page_title: "teltonika_rms_configurator_template Resource - Teltonika RMS"
 subcategory: ""
 description: |-
-  Device configurator template (/devices/configurator/templates). Templates are model-specific and inherit the underlying device configuration grammar, so the payload is provided as raw JSON.
+  Creates and manages a device configurator template (POST /devices/configurator/templates, DELETE /devices/configurator/templates/{id}). Templates capture a device configuration for later replay via POST /devices/configurator/templates/{id}/use. Because template bodies mirror the underlying device configuration grammar — which is model-specific and evolves per firmware — the payload is passed through as raw JSON. RMS does not expose an update verb for templates, so any change to payload forces replacement.
 ---
 
 # teltonika_rms_configurator_template (Resource)
 
-Device configurator template (`/devices/configurator/templates`). Templates are model-specific and inherit the underlying device configuration grammar, so the payload is provided as raw JSON.
+Creates and manages a device configurator template (`POST /devices/configurator/templates`, `DELETE /devices/configurator/templates/{id}`). Templates capture a device configuration for later replay via `POST /devices/configurator/templates/{id}/use`. Because template bodies mirror the underlying device configuration grammar — which is model-specific and evolves per firmware — the payload is passed through as raw JSON. RMS does not expose an update verb for templates, so any change to `payload` forces replacement.
 
 
 
@@ -17,12 +17,12 @@ Device configurator template (`/devices/configurator/templates`). Templates are 
 
 ### Required
 
-- `payload` (String) Raw JSON body sent to POST `/devices/configurator/templates`. Changes force replacement (the templates endpoint has no update verb).
+- `payload` (String) Raw JSON body sent to `POST /devices/configurator/templates`. Changes force replacement (no update verb exists).
 
 ### Read-Only
 
-- `created_at` (String)
-- `id` (String) The ID of this resource.
-- `model` (String)
-- `name` (String)
-- `updated_at` (String)
+- `created_at` (String) Timestamp of template creation.
+- `id` (String) RMS-assigned identifier of the configurator template.
+- `model` (String) Device model the template targets (e.g. `RUT950`).
+- `name` (String) Template name reported by RMS.
+- `updated_at` (String) Timestamp of the most recent update.

@@ -3,12 +3,12 @@
 page_title: "teltonika_rms_companies Data Source - Teltonika RMS"
 subcategory: ""
 description: |-
-  All companies visible to the current token.
+  Lists every company visible to the token (GET /companies, paginated transparently).
 ---
 
 # teltonika_rms_companies (Data Source)
 
-All companies visible to the current token.
+Lists every company visible to the token (`GET /companies`, paginated transparently).
 
 ## Example Usage
 

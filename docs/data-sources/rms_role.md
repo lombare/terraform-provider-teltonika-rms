@@ -3,12 +3,12 @@
 page_title: "teltonika_rms_role Data Source - Teltonika RMS"
 subcategory: ""
 description: |-
-  A single role by id.
+  Looks up a single role by id (GET /roles/{id}), including the companies and permissions it grants.
 ---
 
 # teltonika_rms_role (Data Source)
 
-A single role by id.
+Looks up a single role by id (`GET /roles/{id}`), including the companies and permissions it grants.
 
 
 

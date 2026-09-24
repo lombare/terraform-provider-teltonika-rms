@@ -38,7 +38,9 @@ func (d *currentUserDataSource) Configure(_ context.Context, req datasource.Conf
 
 func (d *currentUserDataSource) Schema(_ context.Context, _ datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Description: "The user represented by the configured token (`GET /user`).",
+		Description: "Returns the RMS user represented by the token this provider is configured with " +
+			"(`GET /user`). Useful for discovering the account's own `company_id` before creating resources " +
+			"scoped to a company, or for asserting the provider is configured with the expected principal.",
 		Attributes: map[string]schema.Attribute{
 			"id":         schema.StringAttribute{Computed: true},
 			"email":      schema.StringAttribute{Computed: true},
@@ -92,7 +94,7 @@ func (d *userDataSource) Configure(_ context.Context, req datasource.ConfigureRe
 
 func (d *userDataSource) Schema(_ context.Context, _ datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Description: "A single RMS user (`GET /users/{id}`).",
+		Description: "Looks up a single RMS user by id (`GET /users/{id}`).",
 		Attributes: map[string]schema.Attribute{
 			"id":         schema.StringAttribute{Required: true},
 			"email":      schema.StringAttribute{Computed: true},
@@ -154,10 +156,18 @@ func (d *usersDataSource) Configure(_ context.Context, req datasource.ConfigureR
 
 func (d *usersDataSource) Schema(_ context.Context, _ datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Description: "All RMS users, optionally filtered by company and search string.",
+		Description: "Lists RMS users visible to the token (`GET /users`), optionally filtered by company " +
+			"and free-text search. The endpoint paginates; the provider follows pages transparently and " +
+			"returns every match.",
 		Attributes: map[string]schema.Attribute{
-			"company_id": schema.Int64Attribute{Optional: true},
-			"search":     schema.StringAttribute{Optional: true},
+			"company_id": schema.Int64Attribute{
+				Optional:    true,
+				Description: "Restrict results to users belonging to this company id.",
+			},
+			"search": schema.StringAttribute{
+				Optional:    true,
+				Description: "Free-text search string forwarded to RMS as the `q` query parameter.",
+			},
 			"users": schema.ListAttribute{
 				Computed:    true,
 				ElementType: types.ObjectType{AttrTypes: userObjectAttrs},

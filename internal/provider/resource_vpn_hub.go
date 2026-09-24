@@ -40,24 +40,56 @@ func (r *vpnHubResource) Configure(_ context.Context, req resource.ConfigureRequ
 
 func (r *vpnHubResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Description: "VPN hub (`/vpn/hubs`).",
+		Description: "Creates and manages a VPN hub (`POST /vpn/hubs`, `PUT /vpn/hubs/{id}`, `DELETE /vpn/hubs`). " +
+			"A hub is the server-side termination point for RMS-managed VPN tunnels; devices connect to it " +
+			"either by tag or by explicit assignment. `enabled` toggles the hub via `PUT /vpn/hubs/{id}/toggle`.",
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:      true,
+				Description:   "RMS-assigned identifier of the VPN hub.",
 				PlanModifiers: []planmodifier.String{stringplanmodifier.UseStateForUnknown()},
 			},
-			"name":        schema.StringAttribute{Required: true},
-			"company_id":  schema.Int64Attribute{Optional: true, Computed: true},
-			"description": schema.StringAttribute{Optional: true, Computed: true},
+			"name": schema.StringAttribute{
+				Required:    true,
+				Description: "Human-readable VPN hub name.",
+			},
+			"company_id": schema.Int64Attribute{
+				Optional:    true,
+				Computed:    true,
+				Description: "Id of the company that owns the hub. Defaults to the token's company when omitted.",
+			},
+			"description": schema.StringAttribute{
+				Optional:    true,
+				Computed:    true,
+				Description: "Free-form hub description.",
+			},
 			"hub_zone": schema.StringAttribute{
 				Required:    true,
-				Description: "One of `frankfurt-1`, `bahrain-1`.",
+				Description: "RMS server region hosting the hub. One of `frankfurt-1`, `bahrain-1`.",
 			},
-			"vpn_type":   schema.StringAttribute{Optional: true, Computed: true, Description: "`tap` or `tun`."},
-			"tag_ids":    schema.ListAttribute{Optional: true, ElementType: types.Int64Type},
-			"enabled":    schema.BoolAttribute{Optional: true, Computed: true},
-			"created_at": schema.StringAttribute{Computed: true},
-			"updated_at": schema.StringAttribute{Computed: true},
+			"vpn_type": schema.StringAttribute{
+				Optional:    true,
+				Computed:    true,
+				Description: "OpenVPN topology. One of `tap` (layer-2 bridged) or `tun` (layer-3 routed).",
+			},
+			"tag_ids": schema.ListAttribute{
+				Optional:    true,
+				ElementType: types.Int64Type,
+				Description: "Ids of tags whose devices are auto-attached to this hub.",
+			},
+			"enabled": schema.BoolAttribute{
+				Optional:    true,
+				Computed:    true,
+				Description: "Whether the hub is currently accepting connections. Changes are applied via `PUT /vpn/hubs/{id}/toggle`.",
+			},
+			"created_at": schema.StringAttribute{
+				Computed:    true,
+				Description: "Timestamp of hub creation.",
+			},
+			"updated_at": schema.StringAttribute{
+				Computed:    true,
+				Description: "Timestamp of the most recent update.",
+			},
 		},
 	}
 }

@@ -39,19 +39,45 @@ func (r *dataCollectConfigResource) Configure(_ context.Context, req resource.Co
 
 func (r *dataCollectConfigResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Description: "Data-collect configuration (`/data-collect/configs`). Payload is passed through verbatim.",
+		Description: "Creates and manages a data-collect configuration (`POST /data-collect/configs`, " +
+			"`PUT /data-collect/configs/{id}`, `DELETE /data-collect/configs/{id}`). A data-collect " +
+			"configuration tells RMS which device fields to sample and at which interval; devices are " +
+			"attached to configurations via `POST /data-collect/configs/assign`. The request grammar is " +
+			"broad and model-dependent, so the entire body is passed through as raw JSON.",
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:      true,
+				Description:   "RMS-assigned identifier of the data-collect configuration.",
 				PlanModifiers: []planmodifier.String{stringplanmodifier.UseStateForUnknown()},
 			},
-			"payload":     schema.StringAttribute{Required: true, Description: "Raw JSON body sent to POST/PUT `/data-collect/configs`."},
-			"name":        schema.StringAttribute{Computed: true},
-			"description": schema.StringAttribute{Computed: true},
-			"enabled":     schema.BoolAttribute{Computed: true},
-			"interval":    schema.Int64Attribute{Computed: true},
-			"created_at":  schema.StringAttribute{Computed: true},
-			"updated_at":  schema.StringAttribute{Computed: true},
+			"payload": schema.StringAttribute{
+				Required:    true,
+				Description: "Raw JSON body sent to `POST /data-collect/configs` on create and `PUT /data-collect/configs/{id}` on update.",
+			},
+			"name": schema.StringAttribute{
+				Computed:    true,
+				Description: "Configuration name reported by RMS.",
+			},
+			"description": schema.StringAttribute{
+				Computed:    true,
+				Description: "Configuration description reported by RMS.",
+			},
+			"enabled": schema.BoolAttribute{
+				Computed:    true,
+				Description: "Whether collection is currently active.",
+			},
+			"interval": schema.Int64Attribute{
+				Computed:    true,
+				Description: "Sampling interval reported by RMS, in seconds.",
+			},
+			"created_at": schema.StringAttribute{
+				Computed:    true,
+				Description: "Timestamp of configuration creation.",
+			},
+			"updated_at": schema.StringAttribute{
+				Computed:    true,
+				Description: "Timestamp of the most recent update.",
+			},
 		},
 	}
 }

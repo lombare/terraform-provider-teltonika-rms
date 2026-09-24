@@ -3,12 +3,12 @@
 page_title: "teltonika_rms_users Data Source - Teltonika RMS"
 subcategory: ""
 description: |-
-  All RMS users, optionally filtered by company and search string.
+  Lists RMS users visible to the token (GET /users), optionally filtered by company and free-text search. The endpoint paginates; the provider follows pages transparently and returns every match.
 ---
 
 # teltonika_rms_users (Data Source)
 
-All RMS users, optionally filtered by company and search string.
+Lists RMS users visible to the token (`GET /users`), optionally filtered by company and free-text search. The endpoint paginates; the provider follows pages transparently and returns every match.
 
 
 
@@ -17,8 +17,8 @@ All RMS users, optionally filtered by company and search string.
 
 ### Optional
 
-- `company_id` (Number)
-- `search` (String)
+- `company_id` (Number) Restrict results to users belonging to this company id.
+- `search` (String) Free-text search string forwarded to RMS as the `q` query parameter.
 
 ### Read-Only
 

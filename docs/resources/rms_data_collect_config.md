@@ -3,12 +3,12 @@
 page_title: "teltonika_rms_data_collect_config Resource - Teltonika RMS"
 subcategory: ""
 description: |-
-  Data-collect configuration (/data-collect/configs). Payload is passed through verbatim.
+  Creates and manages a data-collect configuration (POST /data-collect/configs, PUT /data-collect/configs/{id}, DELETE /data-collect/configs/{id}). A data-collect configuration tells RMS which device fields to sample and at which interval; devices are attached to configurations via POST /data-collect/configs/assign. The request grammar is broad and model-dependent, so the entire body is passed through as raw JSON.
 ---
 
 # teltonika_rms_data_collect_config (Resource)
 
-Data-collect configuration (`/data-collect/configs`). Payload is passed through verbatim.
+Creates and manages a data-collect configuration (`POST /data-collect/configs`, `PUT /data-collect/configs/{id}`, `DELETE /data-collect/configs/{id}`). A data-collect configuration tells RMS which device fields to sample and at which interval; devices are attached to configurations via `POST /data-collect/configs/assign`. The request grammar is broad and model-dependent, so the entire body is passed through as raw JSON.
 
 
 
@@ -17,14 +17,14 @@ Data-collect configuration (`/data-collect/configs`). Payload is passed through 
 
 ### Required
 
-- `payload` (String) Raw JSON body sent to POST/PUT `/data-collect/configs`.
+- `payload` (String) Raw JSON body sent to `POST /data-collect/configs` on create and `PUT /data-collect/configs/{id}` on update.
 
 ### Read-Only
 
-- `created_at` (String)
-- `description` (String)
-- `enabled` (Boolean)
-- `id` (String) The ID of this resource.
-- `interval` (Number)
-- `name` (String)
-- `updated_at` (String)
+- `created_at` (String) Timestamp of configuration creation.
+- `description` (String) Configuration description reported by RMS.
+- `enabled` (Boolean) Whether collection is currently active.
+- `id` (String) RMS-assigned identifier of the data-collect configuration.
+- `interval` (Number) Sampling interval reported by RMS, in seconds.
+- `name` (String) Configuration name reported by RMS.
+- `updated_at` (String) Timestamp of the most recent update.

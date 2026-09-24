@@ -3,12 +3,12 @@
 page_title: "teltonika_rms_alert_configuration Data Source - Teltonika RMS"
 subcategory: ""
 description: |-
-  A single alert configuration by id.
+  Looks up a single alert configuration by id (GET /alerts-configurations/{id}). Conditions and actions are surfaced as raw JSON strings.
 ---
 
 # teltonika_rms_alert_configuration (Data Source)
 
-A single alert configuration by id.
+Looks up a single alert configuration by id (`GET /alerts-configurations/{id}`). Conditions and actions are surfaced as raw JSON strings.
 
 
 

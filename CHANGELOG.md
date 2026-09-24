@@ -34,6 +34,8 @@ built on the Terraform Plugin Framework.
 | `teltonika_rms_vpn_hub_user` | `/vpn/hubs/users` |
 | `teltonika_rms_data_collect_config` | `/data-collect/configs` |
 | `teltonika_rms_configurator_template` | `/devices/configurator/templates` |
+| `teltonika_rms_task_group` | `/devices/tasks/groups` (+ `/devices/tasks?group_id=…` on read) |
+| `teltonika_rms_task_group_task` | *(none — state-only helper; see below)* |
 
 All resources support `terraform import` by RMS id and reconcile drift on read.
 Resources whose RMS payloads vary wildly by entity type (alert configurations,
@@ -67,6 +69,7 @@ catalogue.
 | `teltonika_rms_files` | `/files` |
 | `teltonika_rms_hotspots` | `/hotspots` |
 | `teltonika_rms_data_collect_configs` | `/data-collect/configs` |
+| `teltonika_rms_task_group`, `teltonika_rms_task_groups` | `/devices/tasks/groups` (+ nested tasks via `/devices/tasks?group_id=…`) |
 
 `teltonika_rms_device` and `teltonika_rms_devices_monitoring` expose the full
 RMS response as a `raw` JSON attribute in addition to the typed fields, so
@@ -99,6 +102,11 @@ locally without any registry publication.
   Drift is corrected on the next apply rather than surfaced in `terraform plan`.
 - `teltonika_rms_configurator_template` requires replacement on payload change —
   RMS has no update verb for templates.
+- `teltonika_rms_task_group_task` is a **state-only helper resource** — it
+  performs no RMS API calls at any lifecycle stage. Tasks are created by the
+  RMS API only as a side effect of the task-group POST/PUT, so a task record
+  only makes sense when spliced into a group's `tasks` list. The pattern lets
+  users name and reuse task definitions; inline objects work too.
 
 ### Security
 

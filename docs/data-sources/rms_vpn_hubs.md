@@ -3,12 +3,12 @@
 page_title: "teltonika_rms_vpn_hubs Data Source - Teltonika RMS"
 subcategory: ""
 description: |-
-  All VPN hubs.
+  Lists every VPN hub visible to the token (GET /vpn/hubs, paginated transparently).
 ---
 
 # teltonika_rms_vpn_hubs (Data Source)
 
-All VPN hubs.
+Lists every VPN hub visible to the token (`GET /vpn/hubs`, paginated transparently).
 
 
 

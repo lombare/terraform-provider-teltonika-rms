@@ -3,12 +3,12 @@
 page_title: "teltonika_rms_alert_configurations Data Source - Teltonika RMS"
 subcategory: ""
 description: |-
-  All alert configurations.
+  Lists every alert configuration visible to the token (GET /alerts-configurations, paginated transparently).
 ---
 
 # teltonika_rms_alert_configurations (Data Source)
 
-All alert configurations.
+Lists every alert configuration visible to the token (`GET /alerts-configurations`, paginated transparently).
 
 
 

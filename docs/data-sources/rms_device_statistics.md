@@ -3,12 +3,12 @@
 page_title: "teltonika_rms_device_statistics Data Source - Teltonika RMS"
 subcategory: ""
 description: |-
-  Aggregate device statistics (/devices/statistics) returned as raw JSON.
+  Returns aggregate device statistics for the account (GET /devices/statistics) as raw JSON — device counts by status/model, monitoring throughput, etc. Use jsondecode to pluck fields.
 ---
 
 # teltonika_rms_device_statistics (Data Source)
 
-Aggregate device statistics (`/devices/statistics`) returned as raw JSON.
+Returns aggregate device statistics for the account (`GET /devices/statistics`) as raw JSON — device counts by status/model, monitoring throughput, etc. Use `jsondecode` to pluck fields.
 
 
 

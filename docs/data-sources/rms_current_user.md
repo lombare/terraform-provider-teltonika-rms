@@ -3,12 +3,12 @@
 page_title: "teltonika_rms_current_user Data Source - Teltonika RMS"
 subcategory: ""
 description: |-
-  The user represented by the configured token (GET /user).
+  Returns the RMS user represented by the token this provider is configured with (GET /user). Useful for discovering the account's own company_id before creating resources scoped to a company, or for asserting the provider is configured with the expected principal.
 ---
 
 # teltonika_rms_current_user (Data Source)
 
-The user represented by the configured token (`GET /user`).
+Returns the RMS user represented by the token this provider is configured with (`GET /user`). Useful for discovering the account's own `company_id` before creating resources scoped to a company, or for asserting the provider is configured with the expected principal.
 
 ## Example Usage
 

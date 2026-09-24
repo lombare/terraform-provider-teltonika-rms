@@ -39,24 +39,48 @@ func (r *emailConfigurationResource) Configure(_ context.Context, req resource.C
 
 func (r *emailConfigurationResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Description: "SMTP email configuration used by RMS alerting (`/email-configurations`).",
+		Description: "SMTP configuration used by RMS to deliver alert emails (`POST /email-configurations`, " +
+			"`PUT /email-configurations/{id}`, `DELETE /email-configurations/{id}`). The configuration is " +
+			"referenced by `teltonika_rms_alert_configuration` resources through the alert's `actions` payload.",
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:      true,
+				Description:   "RMS-assigned identifier of the email configuration.",
 				PlanModifiers: []planmodifier.String{stringplanmodifier.UseStateForUnknown()},
 			},
-			"name":     schema.StringAttribute{Required: true},
-			"host":     schema.StringAttribute{Required: true},
-			"port":     schema.Int64Attribute{Required: true},
-			"email":    schema.StringAttribute{Required: true},
-			"username": schema.StringAttribute{Required: true},
+			"name": schema.StringAttribute{
+				Required:    true,
+				Description: "Display name for the SMTP configuration.",
+			},
+			"host": schema.StringAttribute{
+				Required:    true,
+				Description: "SMTP host, e.g. `smtp.example.com`.",
+			},
+			"port": schema.Int64Attribute{
+				Required:    true,
+				Description: "SMTP port, e.g. `587` for STARTTLS or `465` for SMTPS.",
+			},
+			"email": schema.StringAttribute{
+				Required:    true,
+				Description: "Sender email address (the `From:` used on outgoing alert mails).",
+			},
+			"username": schema.StringAttribute{
+				Required:    true,
+				Description: "SMTP authentication username.",
+			},
 			"password": schema.StringAttribute{
 				Required:    true,
 				Sensitive:   true,
-				Description: "SMTP password. Never surfaced by the RMS API on read; the value is kept in state as-configured.",
+				Description: "SMTP authentication password. RMS never returns the value on read; it is kept in state exactly as configured. Rotate by changing the value in your Terraform configuration.",
 			},
-			"created_at": schema.StringAttribute{Computed: true},
-			"updated_at": schema.StringAttribute{Computed: true},
+			"created_at": schema.StringAttribute{
+				Computed:    true,
+				Description: "Timestamp of configuration creation.",
+			},
+			"updated_at": schema.StringAttribute{
+				Computed:    true,
+				Description: "Timestamp of the most recent update.",
+			},
 		},
 	}
 }

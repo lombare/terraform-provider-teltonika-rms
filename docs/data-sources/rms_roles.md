@@ -3,12 +3,12 @@
 page_title: "teltonika_rms_roles Data Source - Teltonika RMS"
 subcategory: ""
 description: |-
-  All roles.
+  Lists every role visible to the token (GET /roles, paginated transparently).
 ---
 
 # teltonika_rms_roles (Data Source)
 
-All roles.
+Lists every role visible to the token (`GET /roles`, paginated transparently).
 
 
 

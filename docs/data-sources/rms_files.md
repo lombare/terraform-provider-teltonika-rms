@@ -3,12 +3,12 @@
 page_title: "teltonika_rms_files Data Source - Teltonika RMS"
 subcategory: ""
 description: |-
-  All files uploaded to RMS.
+  Lists every file uploaded to RMS (GET /files, paginated transparently) -- firmware, backup configs, and device task files.
 ---
 
 # teltonika_rms_files (Data Source)
 
-All files uploaded to RMS.
+Lists every file uploaded to RMS (`GET /files`, paginated transparently) -- firmware, backup configs, and device task files.
 
 
 

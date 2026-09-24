@@ -3,12 +3,12 @@
 page_title: "teltonika_rms_device Data Source - Teltonika RMS"
 subcategory: ""
 description: |-
-  A single device by id (/devices/{id}). RMS device payloads are wide and vary by model — raw exposes the full JSON body for anything not surfaced explicitly.
+  Looks up a single device by id (GET /devices/{id}). RMS device payloads are very wide and vary by model (RUT9xx, TCR100, TRB-series, RUTX-series, …), so the provider surfaces the commonly used typed fields explicitly and exposes the entire response body as raw for model-specific attributes not otherwise mapped.
 ---
 
 # teltonika_rms_device (Data Source)
 
-A single device by id (`/devices/{id}`). RMS device payloads are wide and vary by model — `raw` exposes the full JSON body for anything not surfaced explicitly.
+Looks up a single device by id (`GET /devices/{id}`). RMS device payloads are very wide and vary by model (RUT9xx, TCR100, TRB-series, RUTX-series, …), so the provider surfaces the commonly used typed fields explicitly and exposes the entire response body as `raw` for model-specific attributes not otherwise mapped.
 
 
 

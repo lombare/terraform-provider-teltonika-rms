@@ -3,12 +3,12 @@
 page_title: "teltonika_rms_email_configuration Data Source - Teltonika RMS"
 subcategory: ""
 description: |-
-  A single email configuration by id.
+  Looks up a single SMTP email configuration by id (GET /email-configurations/{id}). The password is never returned.
 ---
 
 # teltonika_rms_email_configuration (Data Source)
 
-A single email configuration by id.
+Looks up a single SMTP email configuration by id (`GET /email-configurations/{id}`). The password is never returned.
 
 
 

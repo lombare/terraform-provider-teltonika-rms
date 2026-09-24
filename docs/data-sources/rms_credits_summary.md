@@ -3,12 +3,12 @@
 page_title: "teltonika_rms_credits_summary Data Source - Teltonika RMS"
 subcategory: ""
 description: |-
-  Credits summary (/credits/summary) returned as raw JSON so downstream automation can pick out the fields it needs.
+  Returns the RMS credits summary (GET /credits/summary) as raw JSON. The shape varies with the account tier and enabled products, so downstream Terraform code should use jsondecode to pluck the fields it cares about.
 ---
 
 # teltonika_rms_credits_summary (Data Source)
 
-Credits summary (`/credits/summary`) returned as raw JSON so downstream automation can pick out the fields it needs.
+Returns the RMS credits summary (`GET /credits/summary`) as raw JSON. The shape varies with the account tier and enabled products, so downstream Terraform code should use `jsondecode` to pluck the fields it cares about.
 
 ## Example Usage
 

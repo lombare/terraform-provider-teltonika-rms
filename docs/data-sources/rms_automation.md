@@ -3,12 +3,12 @@
 page_title: "teltonika_rms_automation Data Source - Teltonika RMS"
 subcategory: ""
 description: |-
-  A single automation by id.
+  Looks up a single automation by id (GET /automations/{id}). Trigger, conditions and actions are surfaced as raw JSON strings so the entire RMS grammar remains accessible.
 ---
 
 # teltonika_rms_automation (Data Source)
 
-A single automation by id.
+Looks up a single automation by id (`GET /automations/{id}`). Trigger, conditions and actions are surfaced as raw JSON strings so the entire RMS grammar remains accessible.
 
 
 

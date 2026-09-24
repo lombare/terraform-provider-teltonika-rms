@@ -3,12 +3,12 @@
 page_title: "teltonika_rms_alerts Data Source - Teltonika RMS"
 subcategory: ""
 description: |-
-  All alerts.
+  Lists every alert visible to the token (GET /alerts, paginated transparently).
 ---
 
 # teltonika_rms_alerts (Data Source)
 
-All alerts.
+Lists every alert visible to the token (`GET /alerts`, paginated transparently).
 
 
 

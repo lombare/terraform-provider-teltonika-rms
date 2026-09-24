@@ -3,12 +3,12 @@
 page_title: "teltonika_rms_tag Data Source - Teltonika RMS"
 subcategory: ""
 description: |-
-  A tag by id.
+  Looks up a single tag by id (GET /tags/{id}).
 ---
 
 # teltonika_rms_tag (Data Source)
 
-A tag by id.
+Looks up a single tag by id (`GET /tags/{id}`).
 
 
 

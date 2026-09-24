@@ -37,21 +37,39 @@ func (r *configuratorTemplateResource) Configure(_ context.Context, req resource
 
 func (r *configuratorTemplateResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Description: "Device configurator template (`/devices/configurator/templates`). Templates are model-specific and inherit the underlying device configuration grammar, so the payload is provided as raw JSON.",
+		Description: "Creates and manages a device configurator template (`POST /devices/configurator/templates`, " +
+			"`DELETE /devices/configurator/templates/{id}`). Templates capture a device configuration for later " +
+			"replay via `POST /devices/configurator/templates/{id}/use`. Because template bodies mirror the " +
+			"underlying device configuration grammar — which is model-specific and evolves per firmware — the " +
+			"payload is passed through as raw JSON. RMS does not expose an update verb for templates, so any " +
+			"change to `payload` forces replacement.",
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:      true,
+				Description:   "RMS-assigned identifier of the configurator template.",
 				PlanModifiers: []planmodifier.String{stringplanmodifier.UseStateForUnknown()},
 			},
 			"payload": schema.StringAttribute{
 				Required:      true,
-				Description:   "Raw JSON body sent to POST `/devices/configurator/templates`. Changes force replacement (the templates endpoint has no update verb).",
+				Description:   "Raw JSON body sent to `POST /devices/configurator/templates`. Changes force replacement (no update verb exists).",
 				PlanModifiers: []planmodifier.String{stringplanmodifier.RequiresReplace()},
 			},
-			"name":       schema.StringAttribute{Computed: true},
-			"model":      schema.StringAttribute{Computed: true},
-			"created_at": schema.StringAttribute{Computed: true},
-			"updated_at": schema.StringAttribute{Computed: true},
+			"name": schema.StringAttribute{
+				Computed:    true,
+				Description: "Template name reported by RMS.",
+			},
+			"model": schema.StringAttribute{
+				Computed:    true,
+				Description: "Device model the template targets (e.g. `RUT950`).",
+			},
+			"created_at": schema.StringAttribute{
+				Computed:    true,
+				Description: "Timestamp of template creation.",
+			},
+			"updated_at": schema.StringAttribute{
+				Computed:    true,
+				Description: "Timestamp of the most recent update.",
+			},
 		},
 	}
 }

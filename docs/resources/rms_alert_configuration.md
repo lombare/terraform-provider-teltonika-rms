@@ -3,12 +3,12 @@
 page_title: "teltonika_rms_alert_configuration Resource - Teltonika RMS"
 subcategory: ""
 description: |-
-  Alert configuration (/alerts-configurations). The payload varies wildly by alert type; supply the raw JSON body that matches the RMS OpenAPI shape.
+  Creates and manages an alert configuration (POST /alerts-configurations, PUT /alerts-configurations/{id}, DELETE /alerts-configurations/{id}). RMS alerts span dozens of trigger types (SIM lifecycle, data usage, signal strength, connection state, hotspot events, custom rules, …) each with its own condition and action grammar. Rather than pinning the resource to one shape, the entire request body is passed through as payload. The expected schema is alert_config_add in the RMS OpenAPI at https://api.rms.teltonika-networks.com/openapi/compiled.yaml.
 ---
 
 # teltonika_rms_alert_configuration (Resource)
 
-Alert configuration (`/alerts-configurations`). The payload varies wildly by alert type; supply the raw JSON body that matches the RMS OpenAPI shape.
+Creates and manages an alert configuration (`POST /alerts-configurations`, `PUT /alerts-configurations/{id}`, `DELETE /alerts-configurations/{id}`). RMS alerts span dozens of trigger types (SIM lifecycle, data usage, signal strength, connection state, hotspot events, custom rules, …) each with its own condition and action grammar. Rather than pinning the resource to one shape, the entire request body is passed through as `payload`. The expected schema is `alert_config_add` in the RMS OpenAPI at https://api.rms.teltonika-networks.com/openapi/compiled.yaml.
 
 ## Example Usage
 
@@ -36,13 +36,13 @@ resource "teltonika_rms_alert_configuration" "device_offline" {
 
 ### Required
 
-- `payload` (String) Raw JSON string of a single alert configuration entry (the object under `data[0]` per the OpenAPI). Round-tripped verbatim on update.
+- `payload` (String) Raw JSON body of the alert configuration matching the OpenAPI `alert_config_add` shape (the object that would sit under `data[0]` in the RMS request envelope — the provider wraps it into the required `{data:[…]}` shape when POSTing). Round-tripped verbatim on update.
 
 ### Read-Only
 
-- `created_at` (String)
-- `enabled` (Boolean)
-- `id` (String) The ID of this resource.
-- `name` (String)
-- `type` (String)
-- `updated_at` (String)
+- `created_at` (String) Timestamp of alert configuration creation.
+- `enabled` (Boolean) Whether the alert is currently active.
+- `id` (String) RMS-assigned identifier of the alert configuration.
+- `name` (String) Alert configuration name reported by RMS.
+- `type` (String) Alert type reported by RMS (e.g. `device_offline`, `sim_swap`, `data_usage`).
+- `updated_at` (String) Timestamp of the most recent update.

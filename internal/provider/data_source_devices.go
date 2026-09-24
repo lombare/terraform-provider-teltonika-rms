@@ -87,7 +87,10 @@ func (d *deviceDataSource) Configure(_ context.Context, req datasource.Configure
 
 func (d *deviceDataSource) Schema(_ context.Context, _ datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Description: "A single device by id (`/devices/{id}`). RMS device payloads are wide and vary by model — `raw` exposes the full JSON body for anything not surfaced explicitly.",
+		Description: "Looks up a single device by id (`GET /devices/{id}`). RMS device payloads are very " +
+			"wide and vary by model (RUT9xx, TCR100, TRB-series, RUTX-series, …), so the provider surfaces " +
+			"the commonly used typed fields explicitly and exposes the entire response body as `raw` for " +
+			"model-specific attributes not otherwise mapped.",
 		Attributes: map[string]schema.Attribute{
 			"id":           schema.StringAttribute{Required: true},
 			"name":         schema.StringAttribute{Computed: true},
@@ -158,11 +161,18 @@ func (d *devicesDataSource) Configure(_ context.Context, req datasource.Configur
 
 func (d *devicesDataSource) Schema(_ context.Context, _ datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Description: "All devices visible to the token, optionally filtered.",
+		Description: "Lists every device visible to the token (`GET /devices`, paginated transparently), " +
+			"optionally filtered by company and free-text search.",
 		Attributes: map[string]schema.Attribute{
-			"company_id": schema.Int64Attribute{Optional: true},
-			"search":     schema.StringAttribute{Optional: true},
-			"devices":    schema.ListAttribute{Computed: true, ElementType: types.ObjectType{AttrTypes: deviceObjectAttrs}},
+			"company_id": schema.Int64Attribute{
+				Optional:    true,
+				Description: "Restrict results to devices owned by this company id.",
+			},
+			"search": schema.StringAttribute{
+				Optional:    true,
+				Description: "Free-text search string forwarded to RMS as the `q` query parameter — matches device name, serial, MAC, and description.",
+			},
+			"devices": schema.ListAttribute{Computed: true, ElementType: types.ObjectType{AttrTypes: deviceObjectAttrs}},
 		},
 	}
 }
@@ -233,7 +243,10 @@ func (d *devicesMonitoringDataSource) Configure(_ context.Context, req datasourc
 
 func (d *devicesMonitoringDataSource) Schema(_ context.Context, _ datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Description: "Live monitoring entries (`/devices/monitoring`). Each entry surfaces the raw JSON RMS returns.",
+		Description: "Live per-device monitoring entries (`GET /devices/monitoring`, paginated transparently). " +
+			"Only devices with monitoring enabled are returned, and only the fields RMS chooses to include " +
+			"per model. Each entry exposes the typed `id`, `name`, `status` plus the full body as `raw` for " +
+			"anything model-specific (signal strength, IO state, WAN counters, GPS, …).",
 		Attributes: map[string]schema.Attribute{
 			"devices": schema.ListAttribute{Computed: true, ElementType: types.ObjectType{AttrTypes: deviceMonitoringObjectAttrs}},
 		},
@@ -277,7 +290,8 @@ func (d *deviceStatisticsDataSource) Configure(_ context.Context, req datasource
 
 func (d *deviceStatisticsDataSource) Schema(_ context.Context, _ datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Description: "Aggregate device statistics (`/devices/statistics`) returned as raw JSON.",
+		Description: "Returns aggregate device statistics for the account (`GET /devices/statistics`) as raw JSON " +
+			"— device counts by status/model, monitoring throughput, etc. Use `jsondecode` to pluck fields.",
 		Attributes: map[string]schema.Attribute{
 			"json": schema.StringAttribute{Computed: true},
 		},

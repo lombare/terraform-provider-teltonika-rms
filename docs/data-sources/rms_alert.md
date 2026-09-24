@@ -3,12 +3,12 @@
 page_title: "teltonika_rms_alert Data Source - Teltonika RMS"
 subcategory: ""
 description: |-
-  A single alert.
+  Looks up a single alert by id (GET /alerts/{id}).
 ---
 
 # teltonika_rms_alert (Data Source)
 
-A single alert.
+Looks up a single alert by id (`GET /alerts/{id}`).
 
 
 

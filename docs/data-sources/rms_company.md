@@ -3,12 +3,12 @@
 page_title: "teltonika_rms_company Data Source - Teltonika RMS"
 subcategory: ""
 description: |-
-  Lookup a company by id.
+  Looks up a single company by id (GET /companies/{id}).
 ---
 
 # teltonika_rms_company (Data Source)
 
-Lookup a company by id.
+Looks up a single company by id (`GET /companies/{id}`).
 
 
 

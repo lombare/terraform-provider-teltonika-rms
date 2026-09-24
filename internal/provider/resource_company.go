@@ -38,29 +38,44 @@ func (r *companyResource) Configure(_ context.Context, req resource.ConfigureReq
 
 func (r *companyResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Description: "A subsidiary company under an RMS account (`/companies`).",
+		Description: "Creates and manages a subsidiary company under the account owning the RMS token. " +
+			"Wraps the `POST /companies`, `PUT /companies/{id}`, and `DELETE /companies/{id}` endpoints. " +
+			"See https://developers.rms.teltonika-networks.com/pages/api.html for the full API reference.",
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:      true,
+				Description:   "RMS-assigned identifier of the company.",
 				PlanModifiers: []planmodifier.String{stringplanmodifier.UseStateForUnknown()},
 			},
 			"name": schema.StringAttribute{
 				Required:    true,
-				Description: "Human-readable company name (3–200 chars).",
+				Description: "Human-readable company name. Length must be between 3 and 200 characters.",
 			},
 			"parent_id": schema.Int64Attribute{
 				Required:    true,
-				Description: "Parent company id under which this subsidiary is created.",
+				Description: "Id of the parent company the new subsidiary is nested under. Required by RMS at creation time.",
 			},
 			"email": schema.StringAttribute{
 				Optional:    true,
 				Computed:    true,
-				Description: "Company contact email.",
+				Description: "Contact email for the company. Required when updating an existing company; optional at creation (the API only accepts email via the update endpoint).",
 			},
-			"level":        schema.Int64Attribute{Computed: true},
-			"device_count": schema.Int64Attribute{Computed: true},
-			"created_at":   schema.StringAttribute{Computed: true},
-			"updated_at":   schema.StringAttribute{Computed: true},
+			"level": schema.Int64Attribute{
+				Computed:    true,
+				Description: "Depth of the company in the parent/subsidiary tree, reported by the API.",
+			},
+			"device_count": schema.Int64Attribute{
+				Computed:    true,
+				Description: "Number of devices currently registered under this company.",
+			},
+			"created_at": schema.StringAttribute{
+				Computed:    true,
+				Description: "RFC-3339-ish timestamp of when the company was created (RMS format `Y-m-d H:i:s`).",
+			},
+			"updated_at": schema.StringAttribute{
+				Computed:    true,
+				Description: "Timestamp of the most recent update, same format as `created_at`.",
+			},
 		},
 	}
 }

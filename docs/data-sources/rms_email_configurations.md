@@ -3,12 +3,12 @@
 page_title: "teltonika_rms_email_configurations Data Source - Teltonika RMS"
 subcategory: ""
 description: |-
-  All email configurations.
+  Lists every SMTP email configuration visible to the token (GET /email-configurations, paginated transparently).
 ---
 
 # teltonika_rms_email_configurations (Data Source)
 
-All email configurations.
+Lists every SMTP email configuration visible to the token (`GET /email-configurations`, paginated transparently).
 
 
 

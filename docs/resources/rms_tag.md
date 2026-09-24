@@ -3,12 +3,12 @@
 page_title: "teltonika_rms_tag Resource - Teltonika RMS"
 subcategory: ""
 description: |-
-  A device tag (/tags).
+  Creates and manages a tag (POST /tags, PUT /tags/{id}, DELETE /tags/{id}). Tags are the primary way to group devices in RMS; they are also referenced by VPN hubs, automations, and data-collect configurations to target sets of devices.
 ---
 
 # teltonika_rms_tag (Resource)
 
-A device tag (`/tags`).
+Creates and manages a tag (`POST /tags`, `PUT /tags/{id}`, `DELETE /tags/{id}`). Tags are the primary way to group devices in RMS; they are also referenced by VPN hubs, automations, and data-collect configurations to target sets of devices.
 
 ## Example Usage
 
@@ -26,19 +26,19 @@ resource "teltonika_rms_tag" "field" {
 
 ### Required
 
-- `company_id` (Number)
-- `description` (String)
-- `name` (String)
+- `company_id` (Number) Id of the company that owns the tag. Required at creation time and immutable thereafter (change requires replace).
+- `description` (String) Free-form description of the tag. Max 200 characters.
+- `name` (String) Tag name. Length must be between 3 and 100 characters.
 
 ### Optional
 
-- `color` (String)
+- `color` (String) Display colour for the tag as a 7-character HEX string, e.g. `#4287f5`.
 
 ### Read-Only
 
-- `created_at` (String)
-- `id` (String) The ID of this resource.
-- `updated_at` (String)
+- `created_at` (String) Timestamp of tag creation (RMS format `Y-m-d H:i:s`).
+- `id` (String) RMS-assigned tag identifier.
+- `updated_at` (String) Timestamp of the most recent update.
 
 ## Import
 

@@ -3,12 +3,12 @@
 page_title: "teltonika_rms_devices_monitoring Data Source - Teltonika RMS"
 subcategory: ""
 description: |-
-  Live monitoring entries (/devices/monitoring). Each entry surfaces the raw JSON RMS returns.
+  Live per-device monitoring entries (GET /devices/monitoring, paginated transparently). Only devices with monitoring enabled are returned, and only the fields RMS chooses to include per model. Each entry exposes the typed id, name, status plus the full body as raw for anything model-specific (signal strength, IO state, WAN counters, GPS, …).
 ---
 
 # teltonika_rms_devices_monitoring (Data Source)
 
-Live monitoring entries (`/devices/monitoring`). Each entry surfaces the raw JSON RMS returns.
+Live per-device monitoring entries (`GET /devices/monitoring`, paginated transparently). Only devices with monitoring enabled are returned, and only the fields RMS chooses to include per model. Each entry exposes the typed `id`, `name`, `status` plus the full body as `raw` for anything model-specific (signal strength, IO state, WAN counters, GPS, …).
 
 ## Example Usage
 

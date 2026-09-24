@@ -3,12 +3,12 @@
 page_title: "teltonika_rms_vpn_hub Resource - Teltonika RMS"
 subcategory: ""
 description: |-
-  VPN hub (/vpn/hubs).
+  Creates and manages a VPN hub (POST /vpn/hubs, PUT /vpn/hubs/{id}, DELETE /vpn/hubs). A hub is the server-side termination point for RMS-managed VPN tunnels; devices connect to it either by tag or by explicit assignment. enabled toggles the hub via PUT /vpn/hubs/{id}/toggle.
 ---
 
 # teltonika_rms_vpn_hub (Resource)
 
-VPN hub (`/vpn/hubs`).
+Creates and manages a VPN hub (`POST /vpn/hubs`, `PUT /vpn/hubs/{id}`, `DELETE /vpn/hubs`). A hub is the server-side termination point for RMS-managed VPN tunnels; devices connect to it either by tag or by explicit assignment. `enabled` toggles the hub via `PUT /vpn/hubs/{id}/toggle`.
 
 ## Example Usage
 
@@ -27,22 +27,22 @@ resource "teltonika_rms_vpn_hub" "eu_central" {
 
 ### Required
 
-- `hub_zone` (String) One of `frankfurt-1`, `bahrain-1`.
-- `name` (String)
+- `hub_zone` (String) RMS server region hosting the hub. One of `frankfurt-1`, `bahrain-1`.
+- `name` (String) Human-readable VPN hub name.
 
 ### Optional
 
-- `company_id` (Number)
-- `description` (String)
-- `enabled` (Boolean)
-- `tag_ids` (List of Number)
-- `vpn_type` (String) `tap` or `tun`.
+- `company_id` (Number) Id of the company that owns the hub. Defaults to the token's company when omitted.
+- `description` (String) Free-form hub description.
+- `enabled` (Boolean) Whether the hub is currently accepting connections. Changes are applied via `PUT /vpn/hubs/{id}/toggle`.
+- `tag_ids` (List of Number) Ids of tags whose devices are auto-attached to this hub.
+- `vpn_type` (String) OpenVPN topology. One of `tap` (layer-2 bridged) or `tun` (layer-3 routed).
 
 ### Read-Only
 
-- `created_at` (String)
-- `id` (String) The ID of this resource.
-- `updated_at` (String)
+- `created_at` (String) Timestamp of hub creation.
+- `id` (String) RMS-assigned identifier of the VPN hub.
+- `updated_at` (String) Timestamp of the most recent update.
 
 ## Import
 

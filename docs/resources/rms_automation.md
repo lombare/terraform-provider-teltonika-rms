@@ -3,12 +3,12 @@
 page_title: "teltonika_rms_automation Resource - Teltonika RMS"
 subcategory: ""
 description: |-
-  Automation (/automations). Payload is passed through verbatim so callers can drive the full trigger/condition/action grammar RMS exposes.
+  Creates and manages an RMS automation (POST /automations, PUT /automations/{id}, DELETE /automations/{id}). Automations pair triggers (device state changes, alerts, schedules) with conditions and actions (device reboot, firmware push, notification, …); the request grammar is broad enough that the entire payload is passed through as raw JSON. Refer to the RMS OpenAPI at https://api.rms.teltonika-networks.com/openapi/compiled.yaml for the current body shape.
 ---
 
 # teltonika_rms_automation (Resource)
 
-Automation (`/automations`). Payload is passed through verbatim so callers can drive the full trigger/condition/action grammar RMS exposes.
+Creates and manages an RMS automation (`POST /automations`, `PUT /automations/{id}`, `DELETE /automations/{id}`). Automations pair triggers (device state changes, alerts, schedules) with conditions and actions (device reboot, firmware push, notification, …); the request grammar is broad enough that the entire payload is passed through as raw JSON. Refer to the RMS OpenAPI at https://api.rms.teltonika-networks.com/openapi/compiled.yaml for the current body shape.
 
 
 
@@ -17,13 +17,13 @@ Automation (`/automations`). Payload is passed through verbatim so callers can d
 
 ### Required
 
-- `payload` (String) Raw JSON body sent to POST/PUT `/automations`.
+- `payload` (String) Raw JSON body sent to `POST /automations` on create and `PUT /automations/{id}` on update.
 
 ### Read-Only
 
-- `created_at` (String)
-- `description` (String)
-- `enabled` (Boolean)
-- `id` (String) The ID of this resource.
-- `name` (String)
-- `updated_at` (String)
+- `created_at` (String) Timestamp of automation creation.
+- `description` (String) Automation description reported by RMS.
+- `enabled` (Boolean) Whether the automation is currently active.
+- `id` (String) RMS-assigned identifier of the automation.
+- `name` (String) Automation name reported by RMS.
+- `updated_at` (String) Timestamp of the most recent update.

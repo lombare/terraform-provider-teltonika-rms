@@ -63,7 +63,7 @@ func (d *tagDataSource) Configure(_ context.Context, req datasource.ConfigureReq
 
 func (d *tagDataSource) Schema(_ context.Context, _ datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Description: "A tag by id.",
+		Description: "Looks up a single tag by id (`GET /tags/{id}`).",
 		Attributes: map[string]schema.Attribute{
 			"id":          schema.StringAttribute{Required: true},
 			"name":        schema.StringAttribute{Computed: true},
@@ -114,7 +114,7 @@ func (d *tagsDataSource) Configure(_ context.Context, req datasource.ConfigureRe
 
 func (d *tagsDataSource) Schema(_ context.Context, _ datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Description: "All device tags.",
+		Description: "Lists every tag visible to the token (`GET /tags`, paginated transparently).",
 		Attributes: map[string]schema.Attribute{
 			"tags": schema.ListAttribute{Computed: true, ElementType: types.ObjectType{AttrTypes: tagObjectAttrs}},
 		},
@@ -194,7 +194,7 @@ func (d *alertDataSource) Configure(_ context.Context, req datasource.ConfigureR
 
 func (d *alertDataSource) Schema(_ context.Context, _ datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Description: "A single alert.",
+		Description: "Looks up a single alert by id (`GET /alerts/{id}`).",
 		Attributes: map[string]schema.Attribute{
 			"id":          schema.StringAttribute{Required: true},
 			"device_id":   schema.Int64Attribute{Computed: true},
@@ -249,7 +249,7 @@ func (d *alertsDataSource) Configure(_ context.Context, req datasource.Configure
 
 func (d *alertsDataSource) Schema(_ context.Context, _ datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Description: "All alerts.",
+		Description: "Lists every alert visible to the token (`GET /alerts`, paginated transparently).",
 		Attributes: map[string]schema.Attribute{
 			"alerts": schema.ListAttribute{Computed: true, ElementType: types.ObjectType{AttrTypes: alertObjectAttrs}},
 		},
@@ -329,7 +329,7 @@ func (d *alertConfigDataSource) Configure(_ context.Context, req datasource.Conf
 
 func (d *alertConfigDataSource) Schema(_ context.Context, _ datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Description: "A single alert configuration by id.",
+		Description: "Looks up a single alert configuration by id (`GET /alerts-configurations/{id}`). Conditions and actions are surfaced as raw JSON strings.",
 		Attributes: map[string]schema.Attribute{
 			"id":         schema.StringAttribute{Required: true},
 			"name":       schema.StringAttribute{Computed: true},
@@ -384,7 +384,7 @@ func (d *alertConfigsDataSource) Configure(_ context.Context, req datasource.Con
 
 func (d *alertConfigsDataSource) Schema(_ context.Context, _ datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Description: "All alert configurations.",
+		Description: "Lists every alert configuration visible to the token (`GET /alerts-configurations`, paginated transparently).",
 		Attributes: map[string]schema.Attribute{
 			"alert_configurations": schema.ListAttribute{Computed: true, ElementType: types.ObjectType{AttrTypes: alertConfigObjectAttrs}},
 		},
@@ -464,7 +464,7 @@ func (d *emailConfigDataSource) Configure(_ context.Context, req datasource.Conf
 
 func (d *emailConfigDataSource) Schema(_ context.Context, _ datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Description: "A single email configuration by id.",
+		Description: "Looks up a single SMTP email configuration by id (`GET /email-configurations/{id}`). The password is never returned.",
 		Attributes: map[string]schema.Attribute{
 			"id":         schema.StringAttribute{Required: true},
 			"name":       schema.StringAttribute{Computed: true},
@@ -519,7 +519,7 @@ func (d *emailConfigsDataSource) Configure(_ context.Context, req datasource.Con
 
 func (d *emailConfigsDataSource) Schema(_ context.Context, _ datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Description: "All email configurations.",
+		Description: "Lists every SMTP email configuration visible to the token (`GET /email-configurations`, paginated transparently).",
 		Attributes: map[string]schema.Attribute{
 			"email_configurations": schema.ListAttribute{Computed: true, ElementType: types.ObjectType{AttrTypes: emailConfigObjectAttrs}},
 		},
@@ -593,7 +593,7 @@ func (d *roleDataSource) Configure(_ context.Context, req datasource.ConfigureRe
 
 func (d *roleDataSource) Schema(_ context.Context, _ datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Description: "A single role by id.",
+		Description: "Looks up a single role by id (`GET /roles/{id}`), including the companies and permissions it grants.",
 		Attributes: map[string]schema.Attribute{
 			"id":             schema.StringAttribute{Required: true},
 			"title":          schema.StringAttribute{Computed: true},
@@ -644,7 +644,7 @@ func (d *rolesDataSource) Configure(_ context.Context, req datasource.ConfigureR
 
 func (d *rolesDataSource) Schema(_ context.Context, _ datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Description: "All roles.",
+		Description: "Lists every role visible to the token (`GET /roles`, paginated transparently).",
 		Attributes: map[string]schema.Attribute{
 			"roles": schema.ListAttribute{Computed: true, ElementType: types.ObjectType{AttrTypes: roleObjectAttrs}},
 		},
@@ -705,7 +705,9 @@ func (d *rolePermissionsDataSource) Configure(_ context.Context, req datasource.
 
 func (d *rolePermissionsDataSource) Schema(_ context.Context, _ datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Description: "Permission catalogue — for a specific role when `role_id` is set, otherwise all permissions the token is entitled to (`/roles/permissions`).",
+		Description: "Returns the RMS permission catalogue — the permissions attached to a specific role when " +
+			"`role_id` is set (`GET /roles/{id}/permissions`), otherwise every permission the token is entitled " +
+			"to (`GET /roles/permissions`). Use to look up ids to pass to the `permission_ids` of `teltonika_rms_role`.",
 		Attributes: map[string]schema.Attribute{
 			"role_id":     schema.StringAttribute{Optional: true},
 			"permissions": schema.ListAttribute{Computed: true, ElementType: types.ObjectType{AttrTypes: permissionObjectAttrs}},
@@ -801,7 +803,7 @@ func (d *automationDataSource) Configure(_ context.Context, req datasource.Confi
 
 func (d *automationDataSource) Schema(_ context.Context, _ datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Description: "A single automation by id.",
+		Description: "Looks up a single automation by id (`GET /automations/{id}`). Trigger, conditions and actions are surfaced as raw JSON strings so the entire RMS grammar remains accessible.",
 		Attributes: map[string]schema.Attribute{
 			"id":          schema.StringAttribute{Required: true},
 			"name":        schema.StringAttribute{Computed: true},
@@ -858,7 +860,7 @@ func (d *automationsDataSource) Configure(_ context.Context, req datasource.Conf
 
 func (d *automationsDataSource) Schema(_ context.Context, _ datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Description: "All automations.",
+		Description: "Lists every automation visible to the token (`GET /automations`, paginated transparently).",
 		Attributes: map[string]schema.Attribute{
 			"automations": schema.ListAttribute{Computed: true, ElementType: types.ObjectType{AttrTypes: automationObjectAttrs}},
 		},
@@ -941,7 +943,7 @@ func (d *vpnHubDataSource) Configure(_ context.Context, req datasource.Configure
 
 func (d *vpnHubDataSource) Schema(_ context.Context, _ datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Description: "A single VPN hub by id.",
+		Description: "Looks up a single VPN hub by id (`GET /vpn/hubs/{id}/info`).",
 		Attributes: map[string]schema.Attribute{
 			"id":          schema.StringAttribute{Required: true},
 			"name":        schema.StringAttribute{Computed: true},
@@ -998,7 +1000,7 @@ func (d *vpnHubsDataSource) Configure(_ context.Context, req datasource.Configur
 
 func (d *vpnHubsDataSource) Schema(_ context.Context, _ datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Description: "All VPN hubs.",
+		Description: "Lists every VPN hub visible to the token (`GET /vpn/hubs`, paginated transparently).",
 		Attributes: map[string]schema.Attribute{
 			"hubs": schema.ListAttribute{Computed: true, ElementType: types.ObjectType{AttrTypes: vpnHubObjectAttrs}},
 		},
@@ -1068,7 +1070,7 @@ func (d *filesDataSource) Configure(_ context.Context, req datasource.ConfigureR
 
 func (d *filesDataSource) Schema(_ context.Context, _ datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Description: "All files uploaded to RMS.",
+		Description: "Lists every file uploaded to RMS (`GET /files`, paginated transparently) -- firmware, backup configs, and device task files.",
 		Attributes: map[string]schema.Attribute{
 			"files": schema.ListAttribute{Computed: true, ElementType: types.ObjectType{AttrTypes: fileObjectAttrs}},
 		},
@@ -1132,7 +1134,7 @@ func (d *hotspotsDataSource) Configure(_ context.Context, req datasource.Configu
 
 func (d *hotspotsDataSource) Schema(_ context.Context, _ datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Description: "All hotspots visible via `/hotspots`.",
+		Description: "Lists every hotspot across every device visible to the token (`GET /hotspots`, paginated transparently).",
 		Attributes: map[string]schema.Attribute{
 			"hotspots": schema.ListAttribute{Computed: true, ElementType: types.ObjectType{AttrTypes: hotspotObjectAttrs}},
 		},
@@ -1202,7 +1204,7 @@ func (d *dataCollectConfigsDataSource) Configure(_ context.Context, req datasour
 
 func (d *dataCollectConfigsDataSource) Schema(_ context.Context, _ datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Description: "All data-collect configurations.",
+		Description: "Lists every data-collect configuration visible to the token (`GET /data-collect/configs`, paginated transparently).",
 		Attributes: map[string]schema.Attribute{
 			"configs": schema.ListAttribute{Computed: true, ElementType: types.ObjectType{AttrTypes: dataCollectConfigObjectAttrs}},
 		},
@@ -1248,7 +1250,9 @@ func (d *creditsSummaryDataSource) Configure(_ context.Context, req datasource.C
 
 func (d *creditsSummaryDataSource) Schema(_ context.Context, _ datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Description: "Credits summary (`/credits/summary`) returned as raw JSON so downstream automation can pick out the fields it needs.",
+		Description: "Returns the RMS credits summary (`GET /credits/summary`) as raw JSON. The shape varies " +
+			"with the account tier and enabled products, so downstream Terraform code should use `jsondecode` " +
+			"to pluck the fields it cares about.",
 		Attributes: map[string]schema.Attribute{
 			"json": schema.StringAttribute{Computed: true},
 		},

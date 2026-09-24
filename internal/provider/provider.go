@@ -98,6 +98,8 @@ func (p *teltonikaProvider) Resources(_ context.Context) []func() resource.Resou
 		NewUserInvitationResource,
 		NewDeviceTagAssignmentResource,
 		NewConfiguratorTemplateResource,
+		NewTaskGroupResource,
+		NewTaskGroupTaskResource,
 	}
 }
 
@@ -131,5 +133,7 @@ func (p *teltonikaProvider) DataSources(_ context.Context) []func() datasource.D
 		NewFilesDataSource,
 		NewHotspotsDataSource,
 		NewDataCollectConfigsDataSource,
+		NewTaskGroupDataSource,
+		NewTaskGroupsDataSource,
 	}
 }

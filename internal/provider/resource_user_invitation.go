@@ -38,15 +38,31 @@ func (r *userInvitationResource) Configure(_ context.Context, req resource.Confi
 func (r *userInvitationResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *resource.SchemaResponse) {
 	replace := []planmodifier.String{stringplanmodifier.RequiresReplace()}
 	resp.Schema = schema.Schema{
-		Description: "User invitation (`/users/invite`). All fields require replacement because RMS does not expose an update verb for pending invitations.",
+		Description: "Sends an invitation email to `email` for the given `company_id` with the given `role` " +
+			"(`POST /users/invite`). RMS stores the invitation until the invitee accepts, at which point they " +
+			"become an ordinary user. `email` and `role` are immutable — changing them replaces the invitation. " +
+			"On destroy, the invitation is revoked via `DELETE /users/invitations/{id}`; if the invitee has " +
+			"already accepted the revoke will 404, at which point the resource is dropped from state.",
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:      true,
+				Description:   "RMS-assigned invitation identifier.",
 				PlanModifiers: []planmodifier.String{stringplanmodifier.UseStateForUnknown()},
 			},
-			"email":      schema.StringAttribute{Required: true, PlanModifiers: replace},
-			"role":       schema.StringAttribute{Required: true, PlanModifiers: replace, Description: "One of `admin`, `end_user`, `read_only`."},
-			"company_id": schema.Int64Attribute{Required: true},
+			"email": schema.StringAttribute{
+				Required:      true,
+				PlanModifiers: replace,
+				Description:   "Email address the invitation is sent to. Changes force a new invitation.",
+			},
+			"role": schema.StringAttribute{
+				Required:      true,
+				PlanModifiers: replace,
+				Description:   "Role granted on acceptance. One of `admin`, `end_user`, `read_only`. Changes force a new invitation.",
+			},
+			"company_id": schema.Int64Attribute{
+				Required:    true,
+				Description: "Id of the company the invitee will be attached to.",
+			},
 		},
 	}
 }

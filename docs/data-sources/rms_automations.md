@@ -3,12 +3,12 @@
 page_title: "teltonika_rms_automations Data Source - Teltonika RMS"
 subcategory: ""
 description: |-
-  All automations.
+  Lists every automation visible to the token (GET /automations, paginated transparently).
 ---
 
 # teltonika_rms_automations (Data Source)
 
-All automations.
+Lists every automation visible to the token (`GET /automations`, paginated transparently).
 
 
 

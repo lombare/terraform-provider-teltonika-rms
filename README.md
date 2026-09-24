@@ -42,6 +42,8 @@ provider "teltonika" {
 | `teltonika_rms_vpn_hub_user` | VPN hub users (`/vpn/hubs/users`) |
 | `teltonika_rms_data_collect_config` | Data-collect configurations (`/data-collect/configs`) |
 | `teltonika_rms_configurator_template` | Device configurator templates |
+| `teltonika_rms_task_group` | Device task groups (`/devices/tasks/groups`) |
+| `teltonika_rms_task_group_task` | State-only helper — a reusable, named task definition spliced into one or more task groups |
 
 ## Data sources
 
@@ -67,6 +69,7 @@ Both singular (single-record) and plural (list) variants are provided across the
 | `teltonika_rms_files` | Files (`/files`) |
 | `teltonika_rms_hotspots` | Hotspots (`/hotspots`) |
 | `teltonika_rms_data_collect_configs` | Data-collect configurations |
+| `teltonika_rms_task_group`, `teltonika_rms_task_groups` | Device task groups (+ their tasks on the singular form) |
 
 ## Building & installing locally
 

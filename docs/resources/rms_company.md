@@ -3,12 +3,12 @@
 page_title: "teltonika_rms_company Resource - Teltonika RMS"
 subcategory: ""
 description: |-
-  A subsidiary company under an RMS account (/companies).
+  Creates and manages a subsidiary company under the account owning the RMS token. Wraps the POST /companies, PUT /companies/{id}, and DELETE /companies/{id} endpoints. See https://developers.rms.teltonika-networks.com/pages/api.html for the full API reference.
 ---
 
 # teltonika_rms_company (Resource)
 
-A subsidiary company under an RMS account (`/companies`).
+Creates and manages a subsidiary company under the account owning the RMS token. Wraps the `POST /companies`, `PUT /companies/{id}`, and `DELETE /companies/{id}` endpoints. See https://developers.rms.teltonika-networks.com/pages/api.html for the full API reference.
 
 ## Example Usage
 
@@ -25,20 +25,20 @@ resource "teltonika_rms_company" "eu_subsidiary" {
 
 ### Required
 
-- `name` (String) Human-readable company name (3–200 chars).
-- `parent_id` (Number) Parent company id under which this subsidiary is created.
+- `name` (String) Human-readable company name. Length must be between 3 and 200 characters.
+- `parent_id` (Number) Id of the parent company the new subsidiary is nested under. Required by RMS at creation time.
 
 ### Optional
 
-- `email` (String) Company contact email.
+- `email` (String) Contact email for the company. Required when updating an existing company; optional at creation (the API only accepts email via the update endpoint).
 
 ### Read-Only
 
-- `created_at` (String)
-- `device_count` (Number)
-- `id` (String) The ID of this resource.
-- `level` (Number)
-- `updated_at` (String)
+- `created_at` (String) RFC-3339-ish timestamp of when the company was created (RMS format `Y-m-d H:i:s`).
+- `device_count` (Number) Number of devices currently registered under this company.
+- `id` (String) RMS-assigned identifier of the company.
+- `level` (Number) Depth of the company in the parent/subsidiary tree, reported by the API.
+- `updated_at` (String) Timestamp of the most recent update, same format as `created_at`.
 
 ## Import
 

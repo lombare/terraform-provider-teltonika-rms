@@ -3,12 +3,12 @@
 page_title: "teltonika_rms_hotspots Data Source - Teltonika RMS"
 subcategory: ""
 description: |-
-  All hotspots visible via /hotspots.
+  Lists every hotspot across every device visible to the token (GET /hotspots, paginated transparently).
 ---
 
 # teltonika_rms_hotspots (Data Source)
 
-All hotspots visible via `/hotspots`.
+Lists every hotspot across every device visible to the token (`GET /hotspots`, paginated transparently).
 
 
 

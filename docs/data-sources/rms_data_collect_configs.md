@@ -3,12 +3,12 @@
 page_title: "teltonika_rms_data_collect_configs Data Source - Teltonika RMS"
 subcategory: ""
 description: |-
-  All data-collect configurations.
+  Lists every data-collect configuration visible to the token (GET /data-collect/configs, paginated transparently).
 ---
 
 # teltonika_rms_data_collect_configs (Data Source)
 
-All data-collect configurations.
+Lists every data-collect configuration visible to the token (`GET /data-collect/configs`, paginated transparently).
 
 
 

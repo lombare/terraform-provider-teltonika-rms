@@ -3,12 +3,12 @@
 page_title: "teltonika_rms_tags Data Source - Teltonika RMS"
 subcategory: ""
 description: |-
-  All device tags.
+  Lists every tag visible to the token (GET /tags, paginated transparently).
 ---
 
 # teltonika_rms_tags (Data Source)
 
-All device tags.
+Lists every tag visible to the token (`GET /tags`, paginated transparently).
 
 
 

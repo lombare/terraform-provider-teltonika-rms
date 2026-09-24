@@ -3,12 +3,12 @@
 page_title: "teltonika_rms_devices Data Source - Teltonika RMS"
 subcategory: ""
 description: |-
-  All devices visible to the token, optionally filtered.
+  Lists every device visible to the token (GET /devices, paginated transparently), optionally filtered by company and free-text search.
 ---
 
 # teltonika_rms_devices (Data Source)
 
-All devices visible to the token, optionally filtered.
+Lists every device visible to the token (`GET /devices`, paginated transparently), optionally filtered by company and free-text search.
 
 ## Example Usage
 
@@ -28,8 +28,8 @@ output "device_count" {
 
 ### Optional
 
-- `company_id` (Number)
-- `search` (String)
+- `company_id` (Number) Restrict results to devices owned by this company id.
+- `search` (String) Free-text search string forwarded to RMS as the `q` query parameter — matches device name, serial, MAC, and description.
 
 ### Read-Only
 

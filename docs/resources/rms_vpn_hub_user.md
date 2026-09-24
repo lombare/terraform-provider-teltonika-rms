@@ -3,12 +3,12 @@
 page_title: "teltonika_rms_vpn_hub_user Resource - Teltonika RMS"
 subcategory: ""
 description: |-
-  VPN hub user (/vpn/hubs/users).
+  Grants a client access to a VPN hub (POST /vpn/hubs/users, DELETE /vpn/hubs/users/{id}). enabled toggles the client's access without removing it, via PUT /vpn/hubs/users/{id}/toggle. Note: the RMS API distinguishes two flavours — RMS-user access (POST /vpn/hubs/users, keyed by vpn_hub_id + user_id) and custom-username access (POST /vpn/hubs/users/custom, keyed by vpn_hub_id + username). This resource targets the former; use raw payloads via the API directly for custom users until dedicated support lands.
 ---
 
 # teltonika_rms_vpn_hub_user (Resource)
 
-VPN hub user (`/vpn/hubs/users`).
+Grants a client access to a VPN hub (`POST /vpn/hubs/users`, `DELETE /vpn/hubs/users/{id}`). `enabled` toggles the client's access without removing it, via `PUT /vpn/hubs/users/{id}/toggle`. Note: the RMS API distinguishes two flavours — RMS-user access (`POST /vpn/hubs/users`, keyed by `vpn_hub_id` + `user_id`) and custom-username access (`POST /vpn/hubs/users/custom`, keyed by `vpn_hub_id` + `username`). This resource targets the former; use raw payloads via the API directly for custom users until dedicated support lands.
 
 ## Example Usage
 
@@ -25,16 +25,16 @@ resource "teltonika_rms_vpn_hub_user" "operator" {
 
 ### Required
 
-- `hub_id` (Number)
-- `name` (String)
+- `hub_id` (Number) Id of the VPN hub the user is bound to (mapped to the API's `vpn_hub_id`).
+- `name` (String) Identifier of the RMS user being granted access (mapped to the API's `user_id`).
 
 ### Optional
 
-- `enabled` (Boolean)
+- `enabled` (Boolean) Whether the binding is currently active. Toggled via `PUT /vpn/hubs/users/{id}/toggle`.
 
 ### Read-Only
 
-- `created_at` (String)
-- `id` (String) The ID of this resource.
-- `updated_at` (String)
-- `username` (String)
+- `created_at` (String) Timestamp of binding creation.
+- `id` (String) RMS-assigned identifier of the hub-user binding.
+- `updated_at` (String) Timestamp of the most recent update.
+- `username` (String) Username reported by the RMS API for this binding.

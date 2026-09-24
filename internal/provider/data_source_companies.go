@@ -63,7 +63,7 @@ func (d *companyDataSource) Configure(_ context.Context, req datasource.Configur
 
 func (d *companyDataSource) Schema(_ context.Context, _ datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Description: "Lookup a company by id.",
+		Description: "Looks up a single company by id (`GET /companies/{id}`).",
 		Attributes: map[string]schema.Attribute{
 			"id":           schema.StringAttribute{Required: true},
 			"name":         schema.StringAttribute{Computed: true},
@@ -118,7 +118,7 @@ func (d *companiesDataSource) Configure(_ context.Context, req datasource.Config
 
 func (d *companiesDataSource) Schema(_ context.Context, _ datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Description: "All companies visible to the current token.",
+		Description: "Lists every company visible to the token (`GET /companies`, paginated transparently).",
 		Attributes: map[string]schema.Attribute{
 			"companies": schema.ListAttribute{
 				Computed:    true,

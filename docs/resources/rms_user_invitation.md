@@ -3,12 +3,12 @@
 page_title: "teltonika_rms_user_invitation Resource - Teltonika RMS"
 subcategory: ""
 description: |-
-  User invitation (/users/invite). All fields require replacement because RMS does not expose an update verb for pending invitations.
+  Sends an invitation email to email for the given company_id with the given role (POST /users/invite). RMS stores the invitation until the invitee accepts, at which point they become an ordinary user. email and role are immutable — changing them replaces the invitation. On destroy, the invitation is revoked via DELETE /users/invitations/{id}; if the invitee has already accepted the revoke will 404, at which point the resource is dropped from state.
 ---
 
 # teltonika_rms_user_invitation (Resource)
 
-User invitation (`/users/invite`). All fields require replacement because RMS does not expose an update verb for pending invitations.
+Sends an invitation email to `email` for the given `company_id` with the given `role` (`POST /users/invite`). RMS stores the invitation until the invitee accepts, at which point they become an ordinary user. `email` and `role` are immutable — changing them replaces the invitation. On destroy, the invitation is revoked via `DELETE /users/invitations/{id}`; if the invitee has already accepted the revoke will 404, at which point the resource is dropped from state.
 
 ## Example Usage
 
@@ -25,10 +25,10 @@ resource "teltonika_rms_user_invitation" "operator" {
 
 ### Required
 
-- `company_id` (Number)
-- `email` (String)
-- `role` (String) One of `admin`, `end_user`, `read_only`.
+- `company_id` (Number) Id of the company the invitee will be attached to.
+- `email` (String) Email address the invitation is sent to. Changes force a new invitation.
+- `role` (String) Role granted on acceptance. One of `admin`, `end_user`, `read_only`. Changes force a new invitation.
 
 ### Read-Only
 
-- `id` (String) The ID of this resource.
+- `id` (String) RMS-assigned invitation identifier.

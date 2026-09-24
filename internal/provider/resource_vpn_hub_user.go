@@ -37,18 +37,43 @@ func (r *vpnHubUserResource) Configure(_ context.Context, req resource.Configure
 
 func (r *vpnHubUserResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Description: "VPN hub user (`/vpn/hubs/users`).",
+		Description: "Grants a client access to a VPN hub (`POST /vpn/hubs/users`, `DELETE /vpn/hubs/users/{id}`). " +
+			"`enabled` toggles the client's access without removing it, via `PUT /vpn/hubs/users/{id}/toggle`. " +
+			"Note: the RMS API distinguishes two flavours — RMS-user access (`POST /vpn/hubs/users`, keyed by " +
+			"`vpn_hub_id` + `user_id`) and custom-username access (`POST /vpn/hubs/users/custom`, keyed by " +
+			"`vpn_hub_id` + `username`). This resource targets the former; use raw payloads via the API " +
+			"directly for custom users until dedicated support lands.",
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Computed:      true,
+				Description:   "RMS-assigned identifier of the hub-user binding.",
 				PlanModifiers: []planmodifier.String{stringplanmodifier.UseStateForUnknown()},
 			},
-			"name":       schema.StringAttribute{Required: true},
-			"hub_id":     schema.Int64Attribute{Required: true},
-			"username":   schema.StringAttribute{Computed: true},
-			"enabled":    schema.BoolAttribute{Optional: true, Computed: true},
-			"created_at": schema.StringAttribute{Computed: true},
-			"updated_at": schema.StringAttribute{Computed: true},
+			"name": schema.StringAttribute{
+				Required:    true,
+				Description: "Identifier of the RMS user being granted access (mapped to the API's `user_id`).",
+			},
+			"hub_id": schema.Int64Attribute{
+				Required:    true,
+				Description: "Id of the VPN hub the user is bound to (mapped to the API's `vpn_hub_id`).",
+			},
+			"username": schema.StringAttribute{
+				Computed:    true,
+				Description: "Username reported by the RMS API for this binding.",
+			},
+			"enabled": schema.BoolAttribute{
+				Optional:    true,
+				Computed:    true,
+				Description: "Whether the binding is currently active. Toggled via `PUT /vpn/hubs/users/{id}/toggle`.",
+			},
+			"created_at": schema.StringAttribute{
+				Computed:    true,
+				Description: "Timestamp of binding creation.",
+			},
+			"updated_at": schema.StringAttribute{
+				Computed:    true,
+				Description: "Timestamp of the most recent update.",
+			},
 		},
 	}
 }

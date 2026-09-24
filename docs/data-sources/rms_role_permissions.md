@@ -3,12 +3,12 @@
 page_title: "teltonika_rms_role_permissions Data Source - Teltonika RMS"
 subcategory: ""
 description: |-
-  Permission catalogue — for a specific role when role_id is set, otherwise all permissions the token is entitled to (/roles/permissions).
+  Returns the RMS permission catalogue — the permissions attached to a specific role when role_id is set (GET /roles/{id}/permissions), otherwise every permission the token is entitled to (GET /roles/permissions). Use to look up ids to pass to the permission_ids of teltonika_rms_role.
 ---
 
 # teltonika_rms_role_permissions (Data Source)
 
-Permission catalogue — for a specific role when `role_id` is set, otherwise all permissions the token is entitled to (`/roles/permissions`).
+Returns the RMS permission catalogue — the permissions attached to a specific role when `role_id` is set (`GET /roles/{id}/permissions`), otherwise every permission the token is entitled to (`GET /roles/permissions`). Use to look up ids to pass to the `permission_ids` of `teltonika_rms_role`.
 
 ## Example Usage
 
